@@ -15,54 +15,60 @@ export default function Transformations() {
   const inview = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="transformations" ref={ref} className="py-20 lg:py-[120px] bg-dark-100">
-      <div className="container-premium">
-        <div className="text-center mb-16">
-          <div className="label-pill mx-auto w-fit">
+    <section id="transformations" ref={ref} className="py-24 lg:py-[120px] bg-dark-100">
+      <div className="premium-container">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inview ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <div className="section-label mx-auto w-fit">
             <div className="dot" />
             <span>Results</span>
           </div>
-          <h2 className="section-title">
+          <h2 className="section-heading">
             Real Results. <span className="gradient-text">Real Transformations.</span>
           </h2>
-          <p className="section-desc mx-auto text-center">
+          <p className="section-subtext mx-auto text-center">
             See the incredible transformations our members have achieved with dedication and expert guidance.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
           {transformations.map((t, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 24 }}
               animate={inview ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.45, delay: i * 0.08 }}
-              className="group glass rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/20"
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              className="group rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/20"
+              style={{ background: "#171A20" }}
             >
               <div className="relative aspect-[4/5] overflow-hidden">
                 <img
                   src={t.img}
                   alt={t.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/20 to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#171A20] via-[#171A20]/20 to-transparent" />
 
-                <div className="absolute top-4 left-4 glass rounded-lg px-3 py-1.5">
-                  <span className="text-xs font-medium text-purple-light">{t.goal}</span>
+                <div className="absolute top-3 left-3 glass rounded-lg px-3 py-1">
+                  <span className="text-xs font-medium text-purple">{t.goal}</span>
                 </div>
 
-                <div className={`absolute top-4 right-4 rounded-lg px-3 py-1.5 flex items-center gap-1.5 ${
-                  t.type === "loss" ? "bg-emerald-500/20 text-emerald-400" : "bg-purple/20 text-purple-light"
+                <div className={`absolute top-3 right-3 rounded-lg px-3 py-1 flex items-center gap-1.5 ${
+                  t.type === "loss" ? "bg-success/20 text-success" : "bg-purple/20 text-purple"
                 }`}>
                   {t.type === "loss" ? <TrendingDown className="w-3.5 h-3.5" /> : <TrendingUp className="w-3.5 h-3.5" />}
                   <span className="text-xs font-bold">{t.change}</span>
                 </div>
               </div>
 
-              <div className="p-6 lg:p-7">
+              <div className="p-6">
                 <div className="flex items-center justify-between mb-3">
                   <h3 className="text-base font-display font-bold text-white">{t.name}</h3>
-                  <div className="flex items-center gap-1.5 text-xs text-zinc-500">
+                  <div className="flex items-center gap-1.5 text-xs text-text-muted">
                     <Clock className="w-3.5 h-3.5" />
                     {t.timeline}
                   </div>
@@ -70,18 +76,18 @@ export default function Transformations() {
 
                 <div className="space-y-2 mb-4">
                   <div className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0" />
-                    <p className="text-xs text-zinc-500 leading-relaxed">{t.before}</p>
+                    <div className="w-1 h-1 rounded-full bg-gold mt-1.5 shrink-0" />
+                    <p className="text-xs text-text-muted leading-relaxed">{t.before}</p>
                   </div>
                   <div className="flex items-start gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 mt-1.5 shrink-0" />
-                    <p className="text-xs text-zinc-500 leading-relaxed">{t.after}</p>
+                    <div className="w-1 h-1 rounded-full bg-success mt-1.5 shrink-0" />
+                    <p className="text-xs text-text-muted leading-relaxed">{t.after}</p>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2 pt-3 border-t border-white/[0.04]">
-                  <Target className="w-3.5 h-3.5 text-purple-light/60" />
-                  <span className="text-xs font-medium text-purple-light/60">{t.result}</span>
+                  <Target className="w-3.5 h-3.5 text-purple/60" />
+                  <span className="text-xs font-medium text-purple/60">{t.result}</span>
                 </div>
               </div>
             </motion.div>
@@ -94,7 +100,7 @@ export default function Transformations() {
           transition={{ duration: 0.5, delay: 0.4 }}
           className="text-center mt-14"
         >
-          <a href="#pricing" className="btn-primary">
+          <a href="#pricing" className="btn-premium">
             Start Your Transformation
             <ArrowRight className="w-4 h-4" />
           </a>

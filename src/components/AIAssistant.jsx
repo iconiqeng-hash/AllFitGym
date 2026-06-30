@@ -13,10 +13,10 @@ const quickActions = [
 ];
 
 const benefits = [
-  { icon: CheckCircle, text: "Get personalized membership recommendations" },
+  { icon: CheckCircle, text: "Personalized membership recommendations" },
   { icon: CheckCircle, text: "Workout assistance & exercise guidance" },
-  { icon: CheckCircle, text: "Lead capture & instant follow-ups" },
   { icon: CheckCircle, text: "Instant answers to all your questions" },
+  { icon: CheckCircle, text: "Lead capture & instant follow-ups" },
 ];
 
 const responses = {
@@ -55,24 +55,24 @@ export default function AIAssistant() {
   };
 
   return (
-    <section id="ai-assistant" ref={ref} className="py-16 lg:py-24 bg-dark">
-      <div className="container-premium">
+    <section id="ai-assistant" ref={ref} className="py-24 lg:py-32 bg-dark">
+      <div className="premium-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <motion.div
             initial={{ opacity: 0, x: -32 }}
             animate={inview ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <div className="label-pill w-fit">
-              <Sparkles className="w-3.5 h-3.5 text-purple-light" />
+            <div className="section-label w-fit">
+              <Sparkles className="w-3.5 h-3.5 text-purple" />
               <span>AI Powered</span>
             </div>
 
-            <h2 className="section-title">
+            <h2 className="section-heading">
               24/7 <span className="gradient-text">Fitness Guidance</span>
             </h2>
 
-            <p className="section-desc mb-8 max-w-[440px]">
+            <p className="section-subtext mb-8 max-w-[440px]">
               Get instant answers, personalized recommendations, and book your
               free trial — all powered by AI, available anytime.
             </p>
@@ -80,8 +80,8 @@ export default function AIAssistant() {
             <div className="space-y-3 mb-8">
               {benefits.map((b, i) => (
                 <div key={i} className="flex items-center gap-3">
-                  <b.icon className="w-5 h-5 text-emerald-400 shrink-0" />
-                  <span className="text-sm text-zinc-400">{b.text}</span>
+                  <b.icon className="w-5 h-5 text-success shrink-0" />
+                  <span className="text-sm text-text-secondary">{b.text}</span>
                 </div>
               ))}
             </div>
@@ -91,12 +91,12 @@ export default function AIAssistant() {
                 <button
                   key={i}
                   onClick={() => handle(a.query)}
-                  className="flex items-center gap-3 glass rounded-xl px-4 py-3.5 text-left transition-all duration-200 hover:bg-white/[0.04]"
+                  className="flex items-center gap-3 glass rounded-xl px-4 py-3.5 text-left transition-all duration-200 hover:bg-white/[0.03]"
                 >
-                  <div className="w-9 h-9 rounded-lg bg-purple/10 flex items-center justify-center shrink-0">
-                    <a.icon className="w-4 h-4 text-purple-light" />
+                  <div className="w-8 h-8 rounded-lg bg-purple/10 flex items-center justify-center shrink-0">
+                    <a.icon className="w-3.5 h-3.5 text-purple" />
                   </div>
-                  <span className="text-sm font-medium text-zinc-400">{a.label}</span>
+                  <span className="text-sm font-medium text-text-secondary">{a.label}</span>
                 </button>
               ))}
             </div>
@@ -106,23 +106,46 @@ export default function AIAssistant() {
             initial={{ opacity: 0, x: 32 }}
             animate={inview ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="lg:max-w-[400px] lg:ml-auto"
+            className="lg:max-w-[600px] lg:ml-auto w-full"
           >
-            <div className="glass rounded-2xl overflow-hidden">
-              <div className="bg-white/[0.02] border-b border-white/[0.04] px-6 py-4 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-purple to-purple-dark flex items-center justify-center">
-                  <Bot className="w-4 h-4 text-white" />
+            <div
+              className="glass rounded-[24px] overflow-hidden shadow-2xl shadow-black/40"
+              style={{ background: "rgba(23, 26, 32, 0.8)", border: "1px solid rgba(255, 255, 255, 0.08)", padding: "12px" }}
+            >
+              <div
+                className="bg-white/[0.02] flex items-center gap-3"
+                style={{ padding: "16px 20px", borderRadius: "16px" }}
+              >
+                <div
+                  className="rounded-lg flex items-center justify-center overflow-hidden"
+                  style={{ width: "64px", height: "64px" }}
+                >
+                  <img
+                    src="/images/93ee5950-3ef0-4cbb-981f-2562cb0c55d8-removebg-preview.png"
+                    alt="Logo"
+                    className="w-full h-full object-contain"
+                    style={{ transform: "scale(2.5)", transformOrigin: "center" }}
+                  />
                 </div>
                 <div>
                   <div className="text-sm font-bold text-white">ALL FIT AI</div>
-                  <div className="text-xs text-emerald-400/70 flex items-center gap-1">
-                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+                  <div className="text-xs text-success/70 flex items-center gap-1">
+                    <div className="w-1.5 h-1.5 rounded-full bg-success" />
                     Online
                   </div>
                 </div>
               </div>
 
-              <div className="h-48 overflow-y-auto p-5 space-y-3">
+              <div
+                className="overflow-y-auto"
+                style={{
+                  height: "360px",
+                  padding: "24px 16px",
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "18px",
+                }}
+              >
                 {msgs.map((m, i) => (
                   <motion.div
                     key={i}
@@ -131,11 +154,15 @@ export default function AIAssistant() {
                     className={`flex ${m.role === "user" ? "justify-end" : "justify-start"}`}
                   >
                     <div
-                      className={`max-w-[88%] rounded-xl px-4 py-3 text-xs leading-relaxed whitespace-pre-line ${
+                      className={`max-w-[85%] rounded-[18px] text-[13px] leading-relaxed whitespace-pre-line ${
                         m.role === "user"
                           ? "bg-purple/20 text-white rounded-br-sm"
-                          : "bg-white/[0.04] text-zinc-300 rounded-bl-sm"
+                          : "bg-white/[0.03] text-text-secondary rounded-bl-sm"
                       }`}
+                      style={{
+                        padding: "14px 20px",
+                        border: m.role === "user" ? "1px solid rgba(139, 92, 246, 0.2)" : "1px solid rgba(255, 255, 255, 0.04)",
+                      }}
                     >
                       {m.text}
                     </div>
@@ -143,18 +170,35 @@ export default function AIAssistant() {
                 ))}
               </div>
 
-              <div className="p-4 border-t border-white/[0.04]">
-                <div className="flex gap-2">
+              <div
+                style={{ padding: "8px" }}
+              >
+                <div className="flex gap-3" style={{ alignItems: "center" }}>
                   <input
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     onKeyDown={(e) => e.key === "Enter" && handle()}
                     placeholder="Ask about plans, workouts, diet..."
-                    className="flex-1 bg-white/[0.03] border border-white/[0.06] rounded-xl px-4 py-2.5 text-sm text-white placeholder-zinc-600 focus:outline-none focus:border-purple/30 transition-colors"
+                    className="flex-1 text-sm text-white placeholder-text-muted focus:outline-none transition-colors"
+                    style={{
+                      padding: "14px 20px",
+                      background: "rgba(255, 255, 255, 0.03)",
+                      border: "1px solid rgba(255, 255, 255, 0.06)",
+                      borderRadius: "12px",
+                      height: "48px",
+                    }}
                   />
                   <button
                     onClick={() => handle()}
-                    className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple to-purple-dark flex items-center justify-center hover:shadow-lg hover:shadow-purple/20 transition-all shrink-0"
+                    className="flex items-center justify-center hover:shadow-lg hover:shadow-purple/20 transition-all shrink-0"
+                    style={{
+                      width: "48px",
+                      height: "48px",
+                      borderRadius: "12px",
+                      background: "linear-gradient(135deg, #8B5CF6, #7C3AED)",
+                      border: "none",
+                      cursor: "pointer",
+                    }}
                   >
                     <Bot className="w-4 h-4 text-white" />
                   </button>

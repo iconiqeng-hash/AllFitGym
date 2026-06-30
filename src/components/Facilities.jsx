@@ -17,46 +17,61 @@ export default function Facilities() {
   const inview = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="facilities" ref={ref} className="py-20 lg:py-[120px] bg-dark-100">
-      <div className="container-premium">
-        <div className="text-center mb-16">
-          <div className="label-pill mx-auto w-fit">
+    <section id="facilities" ref={ref} className="py-24 lg:py-[120px] bg-dark-100">
+      <div className="premium-container">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inview ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <div className="section-label mx-auto w-fit">
             <div className="dot" />
             <span>Our Facilities</span>
           </div>
-          <h2 className="section-title">
+          <h2 className="section-heading">
             World-Class <span className="gradient-text">Facilities</span>
           </h2>
-          <p className="section-desc mx-auto text-center">
+          <p
+            className="section-subtext"
+            style={{
+              textAlign: "center",
+              marginLeft: "auto",
+              marginRight: "auto",
+              display: "block",
+              marginTop: "16px",
+            }}
+          >
             Everything you need for a complete fitness experience, under one roof.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {facilities.map((f, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 24 }}
               animate={inview ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.45, delay: i * 0.08 }}
-              className="group glass rounded-2xl overflow-hidden transition-all duration-500 hover:bg-white/[0.04] hover:-translate-y-1 hover:shadow-xl hover:shadow-black/20"
+              transition={{ duration: 0.4, delay: i * 0.08 }}
+              className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/20"
+              style={{ background: "#171A20" }}
             >
-              <div className="relative aspect-[4/3] overflow-hidden">
+              <div className="relative aspect-[16/10] overflow-hidden">
                 <img
                   src={f.img}
                   alt={f.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-dark/20 to-transparent" />
-                <div className="absolute bottom-4 left-4 w-11 h-11 rounded-xl bg-gradient-to-br from-purple to-purple-dark flex items-center justify-center shadow-lg shadow-purple/20">
-                  <f.icon className="w-5 h-5 text-white" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#171A20] via-[#171A20]/20 to-transparent" />
+                <div className="absolute bottom-4 left-4 w-10 h-10 rounded-xl bg-gradient-to-br from-purple to-purple-dark flex items-center justify-center shadow-lg">
+                  <f.icon className="w-4 h-4 text-white" />
                 </div>
               </div>
-              <div className="p-7 lg:p-8">
-                <h3 className="text-lg font-display font-bold text-white mb-2 group-hover:text-purple-light transition-colors">
+              <div className="px-6 pb-7 -mt-1">
+                <h3 className="text-lg font-display font-bold text-white mb-2">
                   {f.title}
                 </h3>
-                <p className="text-sm text-zinc-500 leading-relaxed">{f.desc}</p>
+                <p className="text-sm text-text-muted leading-relaxed">{f.desc}</p>
               </div>
             </motion.div>
           ))}

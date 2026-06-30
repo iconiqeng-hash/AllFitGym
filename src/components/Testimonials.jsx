@@ -34,20 +34,34 @@ export default function Testimonials() {
   const prev = () => setCur((p) => Math.max(p - 1, 0));
 
   return (
-    <section id="testimonials" ref={ref} className="py-20 lg:py-[120px] bg-dark-100">
-      <div className="container-premium">
-        <div className="text-center mb-16">
-          <div className="label-pill mx-auto w-fit">
+    <section id="testimonials" ref={ref} className="py-24 lg:py-[120px] bg-dark-100">
+      <div className="premium-container">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inview ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <div className="section-label mx-auto w-fit">
             <div className="dot" />
             <span>Testimonials</span>
           </div>
-          <h2 className="section-title">
+          <h2 className="section-heading">
             What Our <span className="gradient-text">Members Say</span>
           </h2>
-          <p className="section-desc mx-auto text-center">
+          <p
+            className="section-subtext"
+            style={{
+              textAlign: "center",
+              marginLeft: "auto",
+              marginRight: "auto",
+              display: "block",
+              marginTop: "16px",
+            }}
+          >
             Real reviews from real members who transformed their lives.
           </p>
-        </div>
+        </motion.div>
 
         <div className="relative overflow-hidden">
           <motion.div
@@ -61,30 +75,33 @@ export default function Testimonials() {
                 className="shrink-0"
                 style={{ width: `calc(${100 / pp}% - ${(pp - 1) * 32 / pp}px)` }}
               >
-                <div className="glass-light rounded-2xl p-10 h-full flex flex-col transition-all duration-300 hover:bg-white/[0.06]">
-                  <div className="flex items-center gap-4 mb-5 shrink-0">
-                    <div className="w-14 h-14 rounded-full bg-gradient-to-br from-purple to-purple-dark flex items-center justify-center text-white font-bold text-lg shrink-0 shadow-lg shadow-purple/20">
+                <div
+                  className="glass rounded-2xl h-full flex flex-col transition-all duration-300 hover:bg-white/[0.03]"
+                  style={{ padding: "44px 36px" }}
+                >
+                  <div className="flex items-center gap-5 mb-6 shrink-0" style={{ padding: "4px 0" }}>
+                    <div className="w-12 h-12 rounded-full bg-gradient-to-br from-purple to-purple-dark flex items-center justify-center text-white font-bold text-base shrink-0">
                       {t.avatar}
                     </div>
-                    <div>
-                      <div className="text-base font-bold text-white">{t.name}</div>
-                      <div className="text-xs text-zinc-500">{t.program}</div>
+                    <div style={{ paddingLeft: "2px" }}>
+                      <div className="text-base font-bold text-white" style={{ marginBottom: "6px" }}>{t.name}</div>
+                      <div className="text-xs text-text-muted">{t.program}</div>
                     </div>
                   </div>
 
-                  <div className="flex gap-1 mb-5 shrink-0">
+                  <div className="flex gap-1 mb-6 shrink-0" style={{ padding: "4px 0" }}>
                     {Array.from({ length: t.rating }).map((_, j) => (
-                      <Star key={j} className="w-4 h-4 text-amber-400 fill-amber-400" />
+                      <Star key={j} className="w-4 h-4 text-gold fill-gold" />
                     ))}
                   </div>
 
-                  <Quote className="w-6 h-6 text-purple-light/20 mb-3 shrink-0" />
+                  <Quote className="w-5 h-5 text-purple/20 mb-5 shrink-0" />
 
-                  <p className="text-sm text-zinc-400 leading-relaxed flex-1">
+                  <p className="text-sm text-text-secondary leading-relaxed flex-1" style={{ paddingBottom: "12px" }}>
                     &ldquo;{t.text}&rdquo;
                   </p>
 
-                  <div className="flex items-center justify-between shrink-0 mt-6 pt-5 border-t border-white/[0.06]">
+                  <div className="flex items-center justify-between shrink-0 mt-8 pt-6 border-t border-white/[0.04]">
                     <div className="flex items-center gap-2">
                       <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none">
                         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
@@ -92,11 +109,11 @@ export default function Testimonials() {
                         <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
                         <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
                       </svg>
-                      <span className="text-xs text-zinc-500">Google Review</span>
+                      <span className="text-xs text-text-muted">Google Review</span>
                     </div>
-                    <div className="flex items-center gap-1.5 bg-amber-400/10 px-2.5 py-1 rounded-full">
-                      <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-                      <span className="text-xs font-medium text-amber-400">5.0</span>
+                    <div className="flex items-center gap-1.5 bg-gold/10 px-2.5 py-1 rounded-full">
+                      <Star className="w-3 h-3 text-gold fill-gold" />
+                      <span className="text-xs font-medium text-gold">5.0</span>
                     </div>
                   </div>
                 </div>
@@ -110,6 +127,7 @@ export default function Testimonials() {
             onClick={prev}
             disabled={cur === 0}
             className="w-10 h-10 rounded-full glass flex items-center justify-center transition-all hover:bg-white/[0.06] disabled:opacity-20 disabled:cursor-not-allowed"
+            aria-label="Previous review"
           >
             <ChevronLeft className="w-4 h-4 text-white" />
           </button>
@@ -121,6 +139,7 @@ export default function Testimonials() {
                 className={`h-1.5 rounded-full transition-all duration-300 ${
                   i === cur ? "w-7 bg-purple" : "w-1.5 bg-white/10 hover:bg-white/20"
                 }`}
+                aria-label={`Go to review ${i + 1}`}
               />
             ))}
           </div>
@@ -128,6 +147,7 @@ export default function Testimonials() {
             onClick={next}
             disabled={cur >= max}
             className="w-10 h-10 rounded-full glass flex items-center justify-center transition-all hover:bg-white/[0.06] disabled:opacity-20 disabled:cursor-not-allowed"
+            aria-label="Next review"
           >
             <ChevronRight className="w-4 h-4 text-white" />
           </button>

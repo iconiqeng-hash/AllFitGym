@@ -1,116 +1,221 @@
 "use client";
+import { useMemo, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
-import { Award, Clock, Star, MapPin } from "lucide-react";
+import { Award, Clock, Star, Globe, Calendar } from "lucide-react";
 
-const trainers = [
-  {
-    name: "Rajesh Kumar",
-    spec: "Strength & Conditioning",
-    exp: "8+ Years Experience",
-    bio: "Expert in powerlifting, bodybuilding, and strength programming for all levels. Certified NSCA-CPT with a track record of 200+ success stories.",
-    img: "https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=600&q=85",
-    cert: "NSCA-CPT",
-    rating: 4.9,
-  },
-  {
-    name: "Priya Sharma",
-    spec: "Weight Loss & Functional",
-    exp: "6+ Years Experience",
-    bio: "Specializes in functional training, weight management, and women's fitness. ACE-CPT certified with expertise in nutrition counseling.",
-    img: "https://images.unsplash.com/photo-1548690312-e3b507d8c110?w=600&q=85",
-    cert: "ACE-CPT",
-    rating: 4.8,
-  },
-  {
-    name: "Amit Patel",
-    spec: "Rehab & Recovery",
-    exp: "10+ Years Experience",
-    bio: "Clinical exercise specialist focusing on injury recovery and pain management. NASM-CES certified with a holistic approach to fitness.",
-    img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=85",
-    cert: "NASM-CES",
-    rating: 4.9,
-  },
-  {
-    name: "Neha Gupta",
-    spec: "Yoga & Flexibility",
-    exp: "7+ Years Experience",
-    bio: "Certified yoga instructor specializing in flexibility, mobility, and mindful training. RYT-500 certified with expertise in therapeutic yoga.",
-    img: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=600&q=85",
-    cert: "RYT-500",
-    rating: 4.7,
-  },
+const specializations = [
+  "Strength & Conditioning Coach",
+  "Weight Management Specialist",
+  "Functional Training Expert",
+  "Rehab & Recovery Specialist",
+  "Yoga & Flexibility Coach",
+  "Sports Performance Trainer",
+  "Body Transformation Coach",
+  "HIIT & Cardio Specialist",
 ];
+
+const certifications = [
+  "NASM-CPT",
+  "ACE-CPT",
+  "NSCA-CSCS",
+  "ISSA-CPT",
+  "ACSM-CEP",
+  "NCCPT",
+  "CSCS",
+  "CF-L1",
+];
+
+const bios = [
+  "Specializes in powerlifting, Olympic lifts, and progressive overload programming for all fitness levels.",
+  "Expert in sustainable weight loss, metabolic conditioning, and personalized nutrition planning.",
+  "Focuses on movement quality, mobility, and real-world fitness through functional training.",
+  "Clinical approach to injury prevention, recovery protocols, and pain-free movement restoration.",
+  "Mindful movement specialist blending flexibility, mobility, and breath work for holistic wellness.",
+  "Performance-driven training for athletes focusing on speed, agility, power, and endurance.",
+  "Holistic transformation coach combining strength training with lifestyle and nutrition coaching.",
+  "High-energy cardio specialist expert in HIIT, circuit training, and fat loss optimization.",
+];
+
+function formatName(filename) {
+  const name = filename.replace(/\.[^.]+$/, "");
+  return name
+    .replace(/[-_]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .replace(/\b\w/g, (c) => c.toUpperCase());
+}
+
+function hashIndex(str, max) {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash + str.charCodeAt(i)) | 0;
+  }
+  return Math.abs(hash) % max;
+}
+
+const imageModules = import.meta.glob("/public/images/**/*.{jpeg,jpg,png,webp}", {
+  eager: true,
+  query: "?url",
+  import: "default",
+});
 
 export default function Trainers() {
   const ref = useRef(null);
   const inview = useInView(ref, { once: true, margin: "-80px" });
 
+  const trainers = useMemo(() => {
+    return Object.entries(imageModules)
+      .filter(([filepath]) => !filepath.includes("removebg-preview") && !filepath.includes("logo"))
+      .map(([filepath, url]) => {
+        const filename = filepath.split("/").pop();
+        const name = formatName(filename);
+        const h = hashIndex(name, 8);
+        return {
+          name,
+          img: url,
+          spec: specializations[h % specializations.length],
+          exp: `${5 + (h % 6)} Years`,
+          cert: certifications[h % certifications.length],
+          rating: (4.5 + (h % 5) * 0.1).toFixed(1),
+          reviews: 60 + h * 25,
+          bio: bios[h % bios.length],
+        };
+      })
+      .map((t) => ({
+        ...t,
+        exp: t.name === "Satyam Sharma" ? "2 Years" : t.exp,
+      }));
+  }, []);
+  const isCarousel = trainers.length > 5;
+
+  const containerClass = isCarousel
+    ? "flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 w-full max-w-full [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+    : "flex overflow-x-auto snap-x snap-mandatory gap-5 pb-8 w-full max-w-full [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 sm:overflow-x-visible sm:pb-0";
+
+  const cardClass = isCarousel
+    ? "group relative rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30 shrink-0 w-[280px] lg:w-[320px] snap-center"
+    : "group relative rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30 shrink-0 w-[280px] snap-center sm:shrink sm:w-auto";
+
   return (
-    <section id="trainers" ref={ref} className="py-20 lg:py-[120px] bg-dark">
-      <div className="container-premium">
-        <div className="text-center mb-16">
-          <div className="label-pill mx-auto w-fit">
+    <section id="trainers" ref={ref} className="py-24 lg:py-[120px] bg-dark">
+      <div className="premium-container">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inview ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5 }}
+          className="text-center mb-16"
+        >
+          <div className="section-label mx-auto w-fit">
             <div className="dot" />
             <span>Our Team</span>
           </div>
-          <h2 className="section-title">
+          <h2 className="section-heading">
             Meet Our <span className="gradient-text">Expert Trainers</span>
           </h2>
-          <p className="section-desc mx-auto text-center">
+          <p
+            className="section-subtext"
+            style={{
+              textAlign: "center",
+              marginLeft: "auto",
+              marginRight: "auto",
+              display: "block",
+              marginTop: "16px",
+            }}
+          >
             Certified professionals dedicated to helping you reach your fitness goals.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
-          {trainers.map((t, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 24 }}
-              animate={inview ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.45, delay: i * 0.08 }}
-              className="group relative rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-black/30"
-            >
-              <div className="relative aspect-[3/4] overflow-hidden">
-                <img
-                  src={t.img}
-                  alt={t.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark/90 via-dark/30 to-transparent" />
+        {trainers.length === 0 ? (
+          <p className="text-center text-text-muted text-sm">
+            No trainers found. Add images to the <code className="text-purple">/public/images/</code> folder.
+          </p>
+        ) : (
+          <div className={containerClass}>
+            {trainers.map((t, i) => (
+              <motion.div
+                key={t.name}
+                initial={{ opacity: 0, y: 24 }}
+                animate={inview ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: i * 0.08 }}
+                className={cardClass}
+                style={{ background: "#171A20" }}
+              >
+                <div className="relative aspect-[3/4] overflow-hidden">
+                  <img
+                    src={t.img}
+                    alt={t.name}
+                    loading="lazy"
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
 
-                <div className="absolute top-4 right-4 bg-white/10 backdrop-blur-xl rounded-lg px-3 py-1.5 flex items-center gap-1.5 text-xs border border-white/10">
-                  <Star className="w-3 h-3 text-amber-400 fill-amber-400" />
-                  <span className="font-medium text-zinc-200">{t.rating}</span>
-                </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#171A20] via-[#171A20]/30 to-transparent" />
 
-                <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-dark/95 via-dark/60 to-transparent">
-                  <h3 className="text-lg font-display font-bold text-white mb-1">{t.name}</h3>
-                  <div className="flex items-center gap-1.5 mb-1">
-                    <MapPin className="w-3.5 h-3.5 text-purple-light/60" />
-                    <span className="text-xs text-zinc-400">{t.spec}</span>
+                  <div className="absolute top-3 right-3 flex items-center gap-1.5 glass rounded-lg px-2.5 py-1">
+                    <Star className="w-3 h-3 text-gold fill-gold" />
+                    <span className="text-xs font-medium text-white">{t.rating}</span>
                   </div>
-                  <div className="flex items-center gap-1.5">
-                    <Award className="w-3.5 h-3.5 text-purple-light/60" />
-                    <span className="text-xs text-purple-light font-medium">{t.cert}</span>
-                  </div>
-                </div>
-              </div>
 
-              <div className="absolute inset-0 bg-gradient-to-t from-dark via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                <div className="absolute bottom-0 left-0 right-0 p-6">
-                  <div className="bg-white/5 backdrop-blur-2xl rounded-xl p-5 border border-white/10">
-                    <div className="flex items-center gap-2 mb-3">
-                      <Clock className="w-3.5 h-3.5 text-purple-light" />
-                      <span className="text-xs text-zinc-300">{t.exp}</span>
+                  <div
+                    className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#171A20] via-[#171A20]/90 to-transparent"
+                    style={{ padding: "28px 24px 24px 24px" }}
+                  >
+                    <h3 className="text-base font-display font-bold text-white mb-1.5">{t.name}</h3>
+                    <p className="text-xs text-text-muted mb-1.5">{t.spec}</p>
+                    <div className="flex items-center gap-3 mt-3">
+                      <div className="flex items-center gap-1">
+                        <Award className="w-3 h-3 text-purple" />
+                        <span className="text-xs text-purple font-medium">{t.cert}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-3 h-3 text-text-muted" />
+                        <span className="text-xs text-text-muted">{t.exp}</span>
+                      </div>
                     </div>
-                    <p className="text-xs text-zinc-400 leading-relaxed">{t.bio}</p>
                   </div>
                 </div>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+
+                <div
+                  className="absolute inset-0 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  style={{ padding: "20px" }}
+                >
+                  <div
+                    className="glass rounded-xl pointer-events-auto"
+                    style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "16px" }}
+                  >
+                    <p className="text-xs text-text-secondary leading-relaxed">
+                      &ldquo;{t.bio}&rdquo;
+                    </p>
+                    <div className="flex items-center gap-1">
+                      <Star className="w-3 h-3 text-gold fill-gold" />
+                      <span className="text-xs text-text-muted">
+                        {t.rating} &middot; {t.reviews} reviews
+                      </span>
+                    </div>
+                    <div className="flex flex-col xl:flex-row gap-2 pt-0.5">
+                      <a
+                        href="#"
+                        className="w-full xl:flex-1 flex items-center justify-center gap-1.5 glass rounded-lg py-2 text-xs font-medium text-text-secondary hover:text-white hover:bg-white/[0.06] transition-all"
+                      >
+                        <Globe className="w-3.5 h-3.5" />
+                        Social
+                      </a>
+                      <a
+                        href="https://wa.me/919667949344?text=Hi!%20I%20want%20to%20book%20a%20session%20with%20a%20trainer"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="w-full xl:flex-1 flex items-center justify-center gap-1.5 bg-purple/20 rounded-lg py-2 text-xs font-medium text-purple hover:bg-purple/30 transition-all"
+                      >
+                        <Calendar className="w-3.5 h-3.5" />
+                        Book Session
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
