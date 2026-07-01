@@ -32,7 +32,7 @@ export default function Pricing() {
   const inview = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="pricing" ref={ref} className="py-24 lg:py-[120px] bg-dark">
+    <section id="pricing" ref={ref} className="py-24 lg:py-[120px] bg-dark-100">
       <div className="premium-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -63,8 +63,8 @@ export default function Pricing() {
         </motion.div>
 
         <div
-          className="flex flex-wrap gap-6 lg:gap-8 w-full mx-auto items-start"
-          style={{ display: "flex", justifyContent: "center" }}
+          className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 w-full [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:flex-wrap sm:justify-center sm:gap-8 items-stretch"
+          style={{ display: "flex" }}
         >
           {plans.map((p, i) => (
             <motion.div
@@ -72,12 +72,12 @@ export default function Pricing() {
               initial={{ opacity: 0, y: 28 }}
               animate={inview ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className={`relative rounded-3xl transition-all duration-500 ${
+              className={`relative rounded-3xl transition-all duration-500 shrink-0 w-[calc(100vw-4rem)] sm:w-[350px] snap-center ${
                 p.popular
                   ? "bg-gradient-to-b from-dark-300 to-dark-200 border border-purple/[0.12] shadow-xl shadow-purple/[0.05] xl:scale-[1.03] xl:-my-2"
                   : "glass hover:bg-white/[0.03]"
               }`}
-              style={{ width: "100%", maxWidth: "350px" }}
+              style={{ display: "flex", flexDirection: "column" }}
             >
               {p.popular && (
                 <div
@@ -93,52 +93,56 @@ export default function Pricing() {
               )}
 
               <div
-                className="text-center"
+                className="text-center flex-1 flex flex-col justify-between"
                 style={{ padding: "48px 36px" }}
               >
-                <div className="text-xs font-semibold text-purple uppercase tracking-[0.15em] mb-4">
-                  {p.tagline}
+                <div>
+                  <div className="text-xs font-semibold text-purple uppercase tracking-[0.15em] mb-4">
+                    {p.tagline}
+                  </div>
+                  <h3 className="text-2xl font-display font-bold text-white mb-7">{p.name}</h3>
+
+                  <div className="flex items-baseline justify-center gap-1.5 mb-10">
+                    <span className="text-lg text-text-muted font-medium">₹</span>
+                    <span className="text-5xl lg:text-6xl font-display font-bold text-white tracking-tight">{p.price}</span>
+                    <span className="text-base text-text-muted">/mo</span>
+                  </div>
+
+                  <ul className="space-y-4.5 mb-12 flex flex-col items-center">
+                    {p.features.map((f, j) => (
+                      <li key={j} className="flex items-center gap-3.5 py-1">
+                        <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${
+                          p.popular ? "bg-purple/15" : "bg-white/5"
+                        }`}>
+                          <Check className={`w-3 h-3 ${p.popular ? "text-purple" : "text-text-muted"}`} />
+                        </div>
+                        <span className="text-sm text-text-secondary">{f}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
-                <h3 className="text-2xl font-display font-bold text-white mb-7">{p.name}</h3>
 
-                <div className="flex items-baseline justify-center gap-1.5 mb-10">
-                  <span className="text-lg text-text-muted font-medium">₹</span>
-                  <span className="text-5xl lg:text-6xl font-display font-bold text-white tracking-tight">{p.price}</span>
-                  <span className="text-base text-text-muted">/mo</span>
+                <div className="mt-auto">
+                  <a
+                    href="https://wa.me/919667949344?text=Hi!%20I%20want%20to%20join%20ALL%20FIT%20GYM"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-full text-center ${
+                      p.popular ? "btn-premium !w-full" : "btn-outline-premium !w-full"
+                    }`}
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      gap: "10px",
+                      padding: "14px 28px",
+                      borderRadius: "14px",
+                    }}
+                  >
+                    Get Started
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
                 </div>
-
-                <ul className="space-y-4.5 mb-12 flex flex-col items-center">
-                  {p.features.map((f, j) => (
-                    <li key={j} className="flex items-center gap-3.5 py-1">
-                      <div className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${
-                        p.popular ? "bg-purple/15" : "bg-white/5"
-                      }`}>
-                        <Check className={`w-3 h-3 ${p.popular ? "text-purple" : "text-text-muted"}`} />
-                      </div>
-                      <span className="text-sm text-text-secondary">{f}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <a
-                  href="https://wa.me/919667949344?text=Hi!%20I%20want%20to%20join%20ALL%20FIT%20GYM"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`w-full text-center ${
-                    p.popular ? "btn-premium !w-full" : "btn-outline-premium !w-full"
-                  }`}
-                  style={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    gap: "10px",
-                    padding: "14px 28px",
-                    borderRadius: "14px",
-                  }}
-                >
-                  Get Started
-                  <ArrowRight className="w-4 h-4" />
-                </a>
               </div>
             </motion.div>
           ))}

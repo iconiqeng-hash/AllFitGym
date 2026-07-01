@@ -32,7 +32,15 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" ref={ref} className="py-20 lg:pt-[100px] lg:pb-[140px] bg-dark-100">
+    <section
+      id="contact"
+      ref={ref}
+      className="bg-dark-100"
+      style={{
+        paddingTop: "clamp(30px, 3vw, 50px)",
+        paddingBottom: "clamp(40px, 4vw, 60px)"
+      }}
+    >
       <div className="premium-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -52,12 +60,12 @@ export default function Contact() {
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
+        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start ">
           <motion.div
             initial={{ opacity: 0, x: -32 }}
             animate={inview ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="space-y-6"
+            className="space-y-8"
           >
             <div
               className="rounded-[20px]"
@@ -159,7 +167,7 @@ export default function Contact() {
 
             <div
               className="rounded-[20px] overflow-hidden h-48"
-              style={{ background: "#171A20", border: "1px solid rgba(255,255,255,0.08)" }}
+              style={{ background: "#171A20", border: "1px solid rgba(255,255,255,0.08)", marginTop: "36px" }}
             >
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.664534498457!2d77.0449863150815!3d28.45209498248698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19c8e5e9e1e1%3A0x1234567890abcdef!2sSushant%20Lok%20Phase%20I%2C%20Gurugram%2C%20Haryana!5e0!3m2!1sen!2sin!4v1234567890"

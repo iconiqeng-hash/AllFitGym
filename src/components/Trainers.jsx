@@ -1,7 +1,7 @@
 "use client";
 import { useMemo, useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { Award, Clock, Star, Globe, Calendar } from "lucide-react";
+import { Award, Clock, Star, Globe } from "lucide-react";
 
 const specializations = [
   "Strength & Conditioning Coach",
@@ -59,6 +59,22 @@ const imageModules = import.meta.glob("/public/images/**/*.{jpeg,jpg,png,webp}",
   import: "default",
 });
 
+const socialLinks = {
+  anurag: "https://instagram.com/anurag_luxe",
+  satyam: "https://instagram.com/Satyam__brahmann",
+  arvind: "https://instagram.com/arvind_rvarma",
+  keshav: "https://instagram.com/Dreamfitness_11",
+  bhanu: "https://instagram.com/akki_sharma0052",
+};
+
+function getSocialLink(name) {
+  const n = name.toLowerCase();
+  for (const [key, url] of Object.entries(socialLinks)) {
+    if (n.includes(key)) return url;
+  }
+  return "#";
+}
+
 export default function Trainers() {
   const ref = useRef(null);
   const inview = useInView(ref, { once: true, margin: "-80px" });
@@ -93,11 +109,11 @@ export default function Trainers() {
     : "flex overflow-x-auto snap-x snap-mandatory gap-5 pb-8 w-full max-w-full [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 sm:overflow-x-visible sm:pb-0";
 
   const cardClass = isCarousel
-    ? "group relative rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30 shrink-0 w-[280px] lg:w-[320px] snap-center"
-    : "group relative rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30 shrink-0 w-[280px] snap-center sm:shrink sm:w-auto";
+    ? "group relative rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30 shrink-0 w-[calc(100vw-4rem)] sm:w-[280px] lg:w-[320px] snap-center"
+    : "group relative rounded-2xl overflow-hidden transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30 shrink-0 w-[calc(100vw-4rem)] snap-center sm:shrink sm:w-auto";
 
   return (
-    <section id="trainers" ref={ref} className="py-24 lg:py-[120px] bg-dark">
+    <section id="trainers" ref={ref} className="py-24 lg:py-[120px] bg-dark-100">
       <div className="premium-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -120,6 +136,8 @@ export default function Trainers() {
               marginRight: "auto",
               display: "block",
               marginTop: "16px",
+              marginBottom: "24px",
+              maxWidth: "none",
             }}
           >
             Certified professionals dedicated to helping you reach your fitness goals.
@@ -192,22 +210,16 @@ export default function Trainers() {
                         {t.rating} &middot; {t.reviews} reviews
                       </span>
                     </div>
-                    <div className="flex flex-col xl:flex-row gap-2 pt-0.5">
+                    <div className="pt-0.5">
                       <a
-                        href="#"
-                        className="w-full xl:flex-1 flex items-center justify-center gap-1.5 glass rounded-lg py-2 text-xs font-medium text-text-secondary hover:text-white hover:bg-white/[0.06] transition-all"
+                        href={getSocialLink(t.name)}
+                        target={getSocialLink(t.name) !== "#" ? "_blank" : undefined}
+                        rel={getSocialLink(t.name) !== "#" ? "noopener noreferrer" : undefined}
+                        className="w-full flex items-center justify-center gap-1.5 glass rounded-lg text-xs font-medium text-text-secondary hover:text-white hover:bg-white/[0.06] transition-all"
+                        style={{ paddingTop: "12px", paddingBottom: "12px" }}
                       >
                         <Globe className="w-3.5 h-3.5" />
                         Social
-                      </a>
-                      <a
-                        href="https://wa.me/919667949344?text=Hi!%20I%20want%20to%20book%20a%20session%20with%20a%20trainer"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full xl:flex-1 flex items-center justify-center gap-1.5 bg-purple/20 rounded-lg py-2 text-xs font-medium text-purple hover:bg-purple/30 transition-all"
-                      >
-                        <Calendar className="w-3.5 h-3.5" />
-                        Book Session
                       </a>
                     </div>
                   </div>

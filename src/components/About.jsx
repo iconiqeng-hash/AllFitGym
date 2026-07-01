@@ -17,7 +17,15 @@ export default function About() {
   const inview = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="about" ref={ref} className="py-24 lg:py-[120px] bg-dark">
+    <section
+      id="about"
+      ref={ref}
+      className="bg-dark-100"
+      style={{
+        paddingTop: "clamp(30px, 3vw, 50px)",
+        paddingBottom: "clamp(40px, 4vw, 60px)"
+      }}
+    >
       <div className="premium-container">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           <motion.div

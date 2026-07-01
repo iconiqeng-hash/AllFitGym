@@ -17,12 +17,20 @@ export default function Testimonials() {
   const inview = useInView(ref, { once: true, margin: "-80px" });
   const [cur, setCur] = useState(0);
   const [pp, setPp] = useState(3);
+  const [gap, setGap] = useState(32);
 
   useEffect(() => {
     const fn = () => {
-      if (window.innerWidth < 640) setPp(1);
-      else if (window.innerWidth < 1024) setPp(2);
-      else setPp(3);
+      if (window.innerWidth < 640) {
+        setPp(1);
+        setGap(24);
+      } else if (window.innerWidth < 1024) {
+        setPp(2);
+        setGap(24);
+      } else {
+        setPp(3);
+        setGap(32);
+      }
     };
     fn();
     window.addEventListener("resize", fn);
@@ -34,7 +42,15 @@ export default function Testimonials() {
   const prev = () => setCur((p) => Math.max(p - 1, 0));
 
   return (
-    <section id="testimonials" ref={ref} className="py-24 lg:py-[120px] bg-dark-100">
+    <section
+      id="testimonials"
+      ref={ref}
+      className="bg-dark-100"
+      style={{
+        paddingTop: "clamp(30px, 3vw, 50px)",
+        paddingBottom: "clamp(40px, 4vw, 60px)"
+      }}
+    >
       <div className="premium-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -66,14 +82,14 @@ export default function Testimonials() {
         <div className="relative overflow-hidden">
           <motion.div
             className="flex gap-6 lg:gap-8"
-            animate={{ x: `-${cur * (100 / pp)}%` }}
+            animate={{ x: `calc(-${cur * (100 / pp)}% - ${cur * (gap / pp)}px)` }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
           >
             {testimonials.map((t, i) => (
               <div
                 key={i}
                 className="shrink-0"
-                style={{ width: `calc(${100 / pp}% - ${(pp - 1) * 32 / pp}px)` }}
+                style={{ width: `calc(${100 / pp}% - ${((pp - 1) * gap) / pp}px)` }}
               >
                 <div
                   className="glass rounded-2xl h-full flex flex-col transition-all duration-300 hover:bg-white/[0.03]"
@@ -122,7 +138,7 @@ export default function Testimonials() {
           </motion.div>
         </div>
 
-        <div className="flex items-center justify-center gap-4 mt-10">
+        <div className="flex items-center justify-center gap-4" style={{ marginTop: "64px" }}>
           <button
             onClick={prev}
             disabled={cur === 0}

@@ -55,7 +55,15 @@ export default function AIAssistant() {
   };
 
   return (
-    <section id="ai-assistant" ref={ref} className="py-24 lg:py-32 bg-dark">
+    <section
+      id="ai-assistant"
+      ref={ref}
+      className="bg-dark-100"
+      style={{
+        paddingTop: "clamp(30px, 3vw, 50px)",
+        paddingBottom: "clamp(40px, 4vw, 60px)"
+      }}
+    >
       <div className="premium-container">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <motion.div

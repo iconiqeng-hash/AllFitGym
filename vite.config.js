@@ -7,5 +7,6 @@ export default defineConfig({
   server: {
     port: 5174,
     strictPort: true,
+    allowedHosts: ["excretory-hulk-preacher.ngrok-free.dev"]
   }
 })

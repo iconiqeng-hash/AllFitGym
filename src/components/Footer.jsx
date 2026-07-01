@@ -1,5 +1,5 @@
 "use client";
-import { Dumbbell, MapPin, Phone, Mail, ArrowRight, Globe, Heart } from "lucide-react";
+import { Dumbbell, MapPin, Phone, Mail, ArrowRight, Heart } from "lucide-react";
 
 const quickLinks = [
   { name: "Home", href: "#home" },
@@ -11,9 +11,25 @@ const quickLinks = [
 ];
 
 const socials = [
-  { icon: Globe, href: "#", label: "Instagram" },
-  { icon: Globe, href: "#", label: "Facebook" },
-  { icon: Globe, href: "#", label: "YouTube" },
+  {
+    icon: (props) => (
+      <svg
+        {...props}
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+      </svg>
+    ),
+    href: "https://www.instagram.com/allfitgym_",
+    label: "Instagram",
+  },
 ];
 
 const contactInfo = [
@@ -25,16 +41,15 @@ const contactInfo = [
 export default function Footer() {
   return (
     <footer
-      className="mt-32 border-t border-white/[0.08] px-4 sm:px-8 lg:px-16"
+      className="mt-32 border-t border-white/[0.08] px-4 sm:px-8 lg:px-16 bg-dark-100"
       style={{
-        background: "#080A0D",
         paddingTop: "90px",
         paddingBottom: "40px",
       }}
     >
       <div className="premium-container mb-24 lg:mb-32">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-12 gap-y-16 gap-x-16 lg:gap-x-24">
-          <div className="sm:col-span-2 lg:col-span-4">
+        <div className="grid grid-cols-2 lg:grid-cols-12 gap-y-12 gap-x-6 sm:gap-x-16 lg:gap-x-24">
+          <div className="col-span-2 lg:col-span-4">
             <a href="#home" className="flex items-center gap-3 mb-10">
               <div className="rounded-xl flex items-center justify-center overflow-hidden" style={{ width: "90px", height: "90px" }}>
                 <img
@@ -65,6 +80,8 @@ export default function Footer() {
                   key={i}
                   href={s.href}
                   aria-label={s.label}
+                  target={s.href !== "#" ? "_blank" : undefined}
+                  rel={s.href !== "#" ? "noopener noreferrer" : undefined}
                   className="w-10 h-10 rounded-xl glass flex items-center justify-center hover:bg-white/[0.06] hover:text-purple transition-all duration-200 text-text-muted"
                 >
                   <s.icon className="w-5 h-5" />
@@ -73,7 +90,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="lg:col-span-2">
+          <div className="col-span-1 lg:col-span-2">
             <h4
               className="text-xs font-bold text-text-muted uppercase tracking-[0.15em]"
               style={{ paddingBottom: "24px" }}
@@ -99,7 +116,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="lg:col-span-3">
+          <div className="col-span-1 lg:col-span-3">
             <h4
               className="text-xs font-bold text-text-muted uppercase tracking-[0.15em]"
               style={{ paddingBottom: "24px" }}
@@ -144,7 +161,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="lg:col-span-3">
+          <div className="col-span-2 lg:col-span-3">
             <h4
               className="text-xs font-bold text-text-muted uppercase tracking-[0.15em]"
               style={{ paddingBottom: "24px" }}
@@ -165,7 +182,8 @@ export default function Footer() {
               <input
                 type="email"
                 placeholder="your@email.com"
-                className="flex-1 bg-white/[0.03] border border-white/[0.06] rounded-xl px-4 py-3.5 text-sm text-white placeholder-text-muted focus:outline-none focus:border-purple/40 transition-colors"
+                className="flex-1 bg-white/[0.03] border border-white/[0.06] rounded-xl text-sm text-white placeholder-text-muted focus:outline-none focus:border-purple/40 transition-colors"
+                style={{ paddingLeft: "16px", paddingRight: "16px", paddingTop: "14px", paddingBottom: "14px" }}
               />
               <button className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple to-purple-dark flex items-center justify-center hover:shadow-lg hover:shadow-purple/20 transition-all shrink-0">
                 <ArrowRight className="w-5 h-5 text-white" />

@@ -17,7 +17,15 @@ export default function Facilities() {
   const inview = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section id="facilities" ref={ref} className="py-24 lg:py-[120px] bg-dark-100">
+    <section
+      id="facilities"
+      ref={ref}
+      className="bg-dark-100"
+      style={{
+        paddingTop: "clamp(30px, 3vw, 50px)",
+        paddingBottom: "clamp(40px, 4vw, 60px)"
+      }}
+    >
       <div className="premium-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -25,7 +33,7 @@ export default function Facilities() {
           transition={{ duration: 0.5 }}
           className="text-center mb-16"
         >
-          <div className="section-label mx-auto w-fit">
+          <div className="section-label mx-auto w-fit ">
             <div className="dot" />
             <span>Our Facilities</span>
           </div>

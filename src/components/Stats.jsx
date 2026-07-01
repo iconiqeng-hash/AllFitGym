@@ -15,7 +15,14 @@ export default function Stats() {
   const inview = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="py-24 lg:py-[120px] bg-dark-100">
+    <section
+      ref={ref}
+      className="bg-dark-100"
+      style={{
+        paddingTop: "clamp(30px, 3vw, 50px)",
+        paddingBottom: "clamp(40px, 4vw, 60px)"
+      }}
+    >
       <div className="premium-container">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -34,6 +41,7 @@ export default function Stats() {
               marginRight: "auto",
               display: "block",
               marginTop: "16px",
+              marginBottom: "24px",
             }}
           >
             A decade of excellence in fitness

@@ -49,8 +49,8 @@ export default function Navbar() {
       className="fixed top-0 left-0 right-0 z-50 h-16 lg:h-[72px] flex items-center"
       style={{
         background: scrolled
-          ? "rgba(9,9,11,0.85)"
-          : "rgba(9,9,11,0.5)",
+          ? "rgba(15,17,21,0.85)"
+          : "rgba(15,17,21,0.5)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
         borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
