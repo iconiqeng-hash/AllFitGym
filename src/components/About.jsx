@@ -22,8 +22,8 @@ export default function About() {
       ref={ref}
       className="bg-dark-100"
       style={{
-        paddingTop: "clamp(30px, 3vw, 50px)",
-        paddingBottom: "clamp(40px, 4vw, 60px)"
+        paddingTop: "clamp(80px, 8vw, 120px)",
+        paddingBottom: "clamp(80px, 8vw, 120px)"
       }}
     >
       <div className="premium-container">
@@ -33,16 +33,16 @@ export default function About() {
             animate={inview ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <div className="section-label">
+            <div className="section-label" style={{ marginBottom: "clamp(12px, 1.5vw, 20px)" }}>
               <div className="dot" />
               <span>About Us</span>
             </div>
 
-            <h2 className="section-heading">
+            <h2 className="section-heading" style={{ marginBottom: "clamp(16px, 2vw, 24px)" }}>
               Why <span className="gradient-text">ALL FIT GYM</span>?
             </h2>
 
-            <p className="section-subtext mb-10 max-w-[460px]">
+            <p className="section-subtext max-w-[460px]" style={{ marginBottom: "clamp(30px, 4vw, 48px)" }}>
               ALL FIT GYM is one of the highest-rated fitness centers in Gurgaon.
               Known for its clean environment, premium equipment, certified trainers,
               and motivating community, we help members achieve real fitness

@@ -59,7 +59,7 @@ export default function Transformations() {
               initial={{ opacity: 0, y: 24 }}
               animate={inview ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: i * 0.08 }}
-              className="group rounded-3xl transition-all duration-500 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/20 shrink-0 w-[calc(100vw-4rem)] sm:w-auto snap-center"
+              className="group rounded-3xl transition-all duration-500 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/20 shrink-0 w-[calc(100vw-4rem)] sm:w-auto snap-center flex flex-col h-full"
               style={{ background: "#171A20", padding: "12px" }}
             >
               <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
@@ -82,7 +82,7 @@ export default function Transformations() {
                 </div>
               </div>
 
-              <div style={{ paddingTop: "10px" }}>
+              <div className="flex flex-col flex-grow" style={{ paddingTop: "10px" }}>
                 <div className="flex items-center justify-between mb-5">
                   <h3 className="text-base font-display font-bold text-white">{t.name}</h3>
                   <div className="flex items-center gap-1.5 text-xs text-text-muted">
@@ -93,16 +93,16 @@ export default function Transformations() {
 
                 <div className="space-y-3.5 mb-6">
                   <div className="flex items-start gap-2.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-gold mt-1.5 shrink-0" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-gold mt-2 shrink-0" />
                     <p className="text-xs text-text-muted leading-relaxed">{t.before}</p>
                   </div>
                   <div className="flex items-start gap-2.5">
-                    <div className="w-1.5 h-1.5 rounded-full bg-success mt-1.5 shrink-0" />
+                    <div className="w-1.5 h-1.5 rounded-full bg-success mt-2 shrink-0" />
                     <p className="text-xs text-text-muted leading-relaxed">{t.after}</p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-2 pt-4 border-t border-white/[0.04]">
+                <div className="flex items-center gap-2 pt-4 border-t border-white/[0.04] mt-auto">
                   <Target className="w-3.5 h-3.5 text-purple/60" />
                   <span className="text-xs font-medium text-purple/60">{t.result}</span>
                 </div>
