@@ -75,6 +75,28 @@ function getSocialLink(name) {
   return "#";
 }
 
+function getTrainerRole(name) {
+  return name.toLowerCase().includes("bhanu") ? "General Trainer" : "Personal Trainer";
+}
+
+function getExperienceYears(name, hash) {
+  if (name === "Satyam Sharma") return 2;
+  return 5 + (hash % 6);
+}
+
+function getRating(role, years) {
+  if (role === "General Trainer") return "4.4";
+  if (years <= 2) return "4.6";
+  if (years <= 5) return "4.7";
+  if (years <= 7) return "4.8";
+  return "4.9";
+}
+
+function getReviewCount(role, years, hash) {
+  if (role === "General Trainer") return 48;
+  return 70 + years * 18 + hash * 6;
+}
+
 export default function Trainers() {
   const ref = useRef(null);
   const inview = useInView(ref, { once: true, margin: "-80px" });
@@ -86,21 +108,20 @@ export default function Trainers() {
         const filename = filepath.split("/").pop();
         const name = formatName(filename);
         const h = hashIndex(name, 8);
+        const role = getTrainerRole(name);
+        const years = getExperienceYears(name, h);
         return {
           name,
+          role,
           img: url,
           spec: specializations[h % specializations.length],
-          exp: `${5 + (h % 6)} Years`,
+          exp: `${years} Years`,
           cert: certifications[h % certifications.length],
-          rating: (4.5 + (h % 5) * 0.1).toFixed(1),
-          reviews: 60 + h * 25,
+          rating: getRating(role, years),
+          reviews: getReviewCount(role, years, h),
           bio: bios[h % bios.length],
         };
       })
-      .map((t) => ({
-        ...t,
-        exp: t.name === "Satyam Sharma" ? "2 Years" : t.exp,
-      }));
   }, []);
   const isCarousel = trainers.length > 5;
 
@@ -169,6 +190,19 @@ export default function Trainers() {
 
                   <div className="absolute inset-0 bg-gradient-to-t from-[#171A20] via-[#171A20]/30 to-transparent" />
 
+                  <div
+                    className={`absolute left-3 top-3 rounded-md text-[0.58rem] font-bold uppercase tracking-[0.06em] shadow-lg ${
+                      t.role === "General Trainer"
+                        ? "border border-gold/35 bg-gold text-dark shadow-gold/20"
+                        : "border border-white/70 bg-white text-dark shadow-black/35"
+                    }`}
+                    style={{ padding: "3px 7px" }}
+                  >
+                    <span style={{ display: "block", padding: "0 1px" }}>
+                      {t.role}
+                    </span>
+                  </div>
+
                   <div className="absolute top-3 right-3 flex items-center gap-1.5 glass rounded-lg px-2.5 py-1">
                     <Star className="w-3 h-3 text-gold fill-gold" />
                     <span className="text-xs font-medium text-white">{t.rating}</span>
@@ -179,6 +213,11 @@ export default function Trainers() {
                     style={{ padding: "28px 24px 24px 24px" }}
                   >
                     <h3 className="mb-1.5 font-display text-base font-bold leading-snug text-white">{t.name}</h3>
+                    <p className={`mb-1.5 text-xs font-semibold ${
+                      t.role === "General Trainer" ? "text-gold" : "text-success"
+                    }`}>
+                      {t.role}
+                    </p>
                     <p className="mb-1.5 text-xs leading-snug text-text-muted">{t.spec}</p>
                     <div className="mt-3 flex flex-wrap items-center gap-2.5">
                       <div className="flex items-center gap-1">
