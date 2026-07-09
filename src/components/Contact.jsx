@@ -10,10 +10,18 @@ export default function Contact() {
   const [sent, setSent] = useState(false);
   const [phoneError, setPhoneError] = useState("");
 
+  const enquiryMessage = (data) =>
+    `Hello ALL FIT GYM Team,\n\nMy name is ${data.name}. I would love to learn more about your gym and membership options.\n\n${data.message || "I would like to enquire about memberships and services."}\n\nYou can reach me at: +91 ${data.phone}\n\nThank you!`;
+
+  const handlePhoneChange = (value) => {
+    const digits = value.replace(/\D/g, "").slice(0, 10);
+    setForm((prev) => ({ ...prev, phone: digits }));
+    if (phoneError) setPhoneError("");
+  };
+
   const validatePhone = (phone) => {
-    const cleaned = phone.replace(/\s+/g, "");
-    if (!cleaned) return "Phone number is required";
-    if (!/^[6-9]\d{9}$/.test(cleaned)) return "Enter a valid 10-digit Indian mobile number";
+    if (!phone) return "Phone number is required";
+    if (!/^[6-9]\d{9}$/.test(phone)) return "Enter a valid 10-digit Indian mobile number";
     return "";
   };
 
@@ -25,10 +33,13 @@ export default function Contact() {
       return;
     }
     setPhoneError("");
-    const text = `Hi! I'm ${form.name}. ${form.message} Phone: ${form.phone}`;
+    const text = enquiryMessage(form);
     window.open(`https://wa.me/919667949344?text=${encodeURIComponent(text)}`, "_blank");
     setSent(true);
-    setTimeout(() => setSent(false), 3000);
+    setTimeout(() => {
+      setSent(false);
+      setForm({ name: "", phone: "", message: "" });
+    }, 6000);
   };
 
   return (
@@ -242,42 +253,55 @@ export default function Contact() {
                     <label className="font-['Poppins'] text-sm font-medium block" style={{ color: "#D1D5DB", marginBottom: "16px" }}>
                       Phone Number
                     </label>
-                    <input
-                      type="tel"
-                      required
-                      value={form.phone}
-                      onChange={(e) => setForm({ ...form, phone: e.target.value })}
-                      placeholder="+91 XXXXX XXXXX"
-                      onFocus={() => {
-                        setPhoneError("");
-                      }}
-                      className="w-full rounded-xl text-white placeholder:text-[#9CA3AF] focus:outline-none transition-all duration-200"
+                    <div
+                      className="flex w-full overflow-hidden rounded-xl transition-all duration-200"
                       style={{
-                        padding: "14px 18px",
-                        fontSize: "15px",
-                        fontFamily: "Poppins, sans-serif",
-                        fontWeight: 400,
-                        background: "#1F232B",
                         border: phoneError ? "1px solid rgba(239,68,68,0.5)" : "1px solid rgba(255,255,255,0.08)",
-                        borderRadius: "14px",
                         height: "54px",
+                        background: "#1F232B",
                       }}
-                      onFocusCapture={(e) => {
-                        setPhoneError("");
-                        e.target.style.borderColor = "#8B5CF6";
-                        e.target.style.boxShadow = "0 0 0 3px rgba(139,92,246,0.15)";
-                        e.target.style.background = "#252A34";
-                      }}
-                      onBlur={(e) => {
-                        if (!phoneError) {
-                          e.target.style.borderColor = "rgba(255,255,255,0.08)";
-                        }
-                        e.target.style.boxShadow = "none";
-                        e.target.style.background = "#1F232B";
-                      }}
-                      onMouseEnter={(e) => { if (e.target !== document.activeElement) e.target.style.background = "#252A34"; }}
-                      onMouseLeave={(e) => { if (e.target !== document.activeElement) e.target.style.background = "#1F232B"; }}
-                    />
+                    >
+                      <span
+                        className="flex shrink-0 items-center font-['Poppins'] text-sm text-text-secondary"
+                        style={{
+                          padding: "0 16px",
+                          borderRight: "1px solid rgba(255,255,255,0.08)",
+                          background: "#252A34",
+                        }}
+                      >
+                        +91
+                      </span>
+                      <input
+                        type="tel"
+                        required
+                        value={form.phone}
+                        onChange={(e) => handlePhoneChange(e.target.value)}
+                        placeholder="9876543210"
+                        inputMode="numeric"
+                        maxLength={10}
+                        pattern="[6-9][0-9]{9}"
+                        className="min-w-0 flex-1 bg-transparent text-white placeholder:text-[#9CA3AF] focus:outline-none"
+                        style={{
+                          padding: "14px 18px",
+                          fontSize: "15px",
+                          fontFamily: "Poppins, sans-serif",
+                          fontWeight: 400,
+                        }}
+                        onFocusCapture={(e) => {
+                          setPhoneError("");
+                          e.currentTarget.parentElement.style.borderColor = "#8B5CF6";
+                          e.currentTarget.parentElement.style.boxShadow = "0 0 0 3px rgba(139,92,246,0.15)";
+                          e.currentTarget.parentElement.style.background = "#252A34";
+                        }}
+                        onBlur={(e) => {
+                          if (!phoneError) {
+                            e.currentTarget.parentElement.style.borderColor = "rgba(255,255,255,0.08)";
+                          }
+                          e.currentTarget.parentElement.style.boxShadow = "none";
+                          e.currentTarget.parentElement.style.background = "#1F232B";
+                        }}
+                      />
+                    </div>
                     <AnimatePresence>
                       {phoneError && (
                         <motion.p
@@ -330,9 +354,47 @@ export default function Contact() {
                   </div>
                 </div>
 
+                <AnimatePresence mode="wait">
+                  {sent ? (
+                    <motion.div
+                      key="success"
+                      initial={{ opacity: 0, y: 12 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -8 }}
+                      transition={{ duration: 0.3 }}
+                      className="rounded-2xl text-center"
+                      style={{
+                        padding: "28px 24px",
+                        background: "rgba(34, 197, 94, 0.08)",
+                        border: "1px solid rgba(34, 197, 94, 0.2)",
+                        marginBottom: "20px",
+                      }}
+                    >
+                      <div
+                        className="mx-auto flex items-center justify-center rounded-full"
+                        style={{
+                          width: "52px",
+                          height: "52px",
+                          marginBottom: "16px",
+                          background: "rgba(34, 197, 94, 0.15)",
+                        }}
+                      >
+                        <CheckCircle className="w-6 h-6 text-success" />
+                      </div>
+                      <h4 className="font-['Poppins'] text-lg font-semibold text-white" style={{ marginBottom: "10px" }}>
+                        Thank you for reaching out!
+                      </h4>
+                      <p className="font-['Poppins'] text-sm leading-relaxed" style={{ color: "#B8BCC8", maxWidth: "360px", margin: "0 auto" }}>
+                        We&apos;ve opened WhatsApp so you can connect with our team directly. Someone from ALL FIT GYM will be with you shortly to help you take the next step in your fitness journey.
+                      </p>
+                    </motion.div>
+                  ) : null}
+                </AnimatePresence>
+
                 <button
                   type="submit"
-                  className="w-full font-['Poppins'] font-semibold text-white rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5 text-sm"
+                  disabled={sent}
+                  className="w-full font-['Poppins'] font-semibold text-white rounded-xl transition-all duration-300 flex items-center justify-center gap-2.5 text-sm disabled:opacity-80"
                   style={{
                     height: "48px",
                     padding: "0 24px",
@@ -358,7 +420,7 @@ export default function Contact() {
                   {sent ? (
                     <>
                       <CheckCircle className="w-4 h-4" />
-                      Message Sent!
+                      Opening WhatsApp...
                     </>
                   ) : (
                     <>

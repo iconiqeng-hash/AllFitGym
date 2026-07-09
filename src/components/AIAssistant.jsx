@@ -20,12 +20,22 @@ const benefits = [
 ];
 
 const responses = {
-  membership: "We offer 3 plans:\n\nBasic ₹1,499/mo — Gym + Cardio + Strength\nPro ₹2,499/mo — + Functional Training + Diet Guidance\nElite ₹4,999/mo — + Personal Trainer + Custom Plan\n\nBook a free trial to experience our facilities!",
-  weight: "For weight loss, we recommend:\n\n1. Our Pro plan with diet guidance\n2. 3-4x/week cardio + strength combo\n3. Customized nutrition plan from our trainers\n4. Regular progress tracking\n\nBook a free consultation to get started!",
-  muscle: "For muscle building:\n\nElite plan recommended with personal trainer\nCustomized workout split\nDiet plan for lean gains\nProgressive overload tracking\n\nLet's build your dream physique!",
-  timings: "Gym Timings:\n\nMon-Sat: 5:30 AM - 10:00 PM\nSunday: 7:00 AM - 9:00 PM\n\nAddress: 2935, Block C, Sushant Lok Phase I, Sector 43, Gurugram",
-  trial: "Great choice!\n\nBook your FREE trial:\nCall: +91 96679 49344\nWhatsApp: wa.me/919667949344\n\nVisit us at Sushant Lok Phase 1, Gurgaon\n\nNo commitment required!",
-  default: "Thanks for your interest in ALL FIT GYM!\n\nI can help you with:\n- Membership plans\n- Weight loss guidance\n- Muscle gain tips\n- Gym timings & location\n- Free trial booking\n\nWhat would you like to know?",
+  membership:
+    "Here are our membership plans:\n\n• 1 Month — ₹3,000\n• 3 Months — ₹6,000\n• 6 Months — ₹9,000\n• 12 Months — ₹15,000\n\nEvery plan includes trainer guidance, workout & diet charts, full gym access, and weekly fitness events.\n\nWould you like help choosing the right plan? Book a free trial to experience ALL FIT GYM firsthand!",
+  weight:
+    "We're glad you're taking this step toward a healthier you.\n\nFor sustainable weight loss, our trainers typically recommend:\n\n1. A membership plan with diet & nutrition guidance\n2. 3–4 sessions per week combining cardio and strength\n3. A personalised workout chart tailored to your goals\n4. Consistent check-ins to track your progress\n\nBook a free trial and our team will help you build a plan that works for your lifestyle.",
+  muscle:
+    "Building muscle is a journey — and we're here to guide you through it.\n\nOur approach includes:\n\n• A structured workout split designed for your level\n• Diet guidance for lean muscle gains\n• Progressive overload tracking with trainer support\n• Access to premium strength & functional training zones\n\nVisit us for a free trial and let's start building your best physique together.",
+  timings:
+    "We'd love to see you at the gym!\n\n🕐 Mon–Sat: 5:30 AM – 10:00 PM\n🕐 Sunday: 7:00 AM – 9:00 PM\n\n📍 2935, Block C, Sushant Lok Phase I, Sector 43, Gurugram, Haryana 122009\n\nFeel free to walk in during these hours, or book a free trial so our team can give you a personalised tour.",
+  trial:
+    "Wonderful — we're excited you're interested in trying ALL FIT GYM!\n\nYour free trial is the perfect way to experience our space, meet our trainers, and see if we're the right fit for your goals. There's absolutely no obligation.\n\nTo confirm your visit:\n📞 Call: +91 96679 49344\n💬 WhatsApp: wa.me/919667949344\n\n📍 Sushant Lok Phase I, Gurgaon\n\nOur team will be happy to schedule a time that works for you. We can't wait to welcome you!",
+  join:
+    "We'd love to have you as part of the ALL FIT GYM family!\n\nHere's how to get started:\n\n1. Book a free trial to experience our facilities\n2. Choose a membership plan that fits your goals\n3. Our team will guide you through a smooth onboarding\n\n📞 +91 96679 49344 | 💬 WhatsApp available\n\nYour fitness journey starts here — and we'll be with you every step of the way.",
+  enquiry:
+    "Thank you for your interest in ALL FIT GYM — we truly appreciate you reaching out.\n\nOur team is here to help with memberships, training programmes, diet guidance, and anything else you need to reach your fitness goals.\n\nThe fastest way to connect:\n📞 +91 96679 49344\n💬 WhatsApp: wa.me/919667949344\n\nVisit us at Sushant Lok Phase I, Gurgaon. We look forward to welcoming you soon!",
+  default:
+    "Welcome to ALL FIT GYM — Gurgaon's premium fitness destination!\n\nI'm here to help you with:\n• Membership plans & pricing\n• Weight loss & muscle building guidance\n• Gym timings & location\n• Free trial bookings\n\nWhat would you like to know? We're happy to help you take the first step toward your fitness goals.",
 };
 
 function getResp(input) {
@@ -35,6 +45,8 @@ function getResp(input) {
   if (l.includes("muscle") || l.includes("build") || l.includes("gain")) return responses.muscle;
   if (l.includes("timing") || l.includes("time") || l.includes("open") || l.includes("hour")) return responses.timings;
   if (l.includes("trial") || l.includes("free") || l.includes("book")) return responses.trial;
+  if (l.includes("join") || l.includes("member") || l.includes("sign up") || l.includes("signup")) return responses.join;
+  if (l.includes("enquir") || l.includes("inquir") || l.includes("contact") || l.includes("reach out")) return responses.enquiry;
   return responses.default;
 }
 
@@ -43,7 +55,7 @@ export default function AIAssistant() {
   const chatRef = useRef(null);
   const inview = useInView(ref, { once: true, margin: "-80px" });
   const [msgs, setMsgs] = useState([
-    { role: "bot", text: "Hi! I'm your AI Fitness Assistant.\n\nAsk me anything about ALL FIT GYM — plans, workouts, diet, or book a free trial!" },
+    { role: "bot", text: "Welcome! I'm your ALL FIT GYM assistant.\n\nWhether you're looking to book a free trial, explore membership plans, or get fitness guidance — I'm here to help. What can I assist you with today?" },
   ]);
   const [input, setInput] = useState("");
 
