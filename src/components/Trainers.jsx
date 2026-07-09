@@ -2,6 +2,7 @@
 import { useMemo, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Award, Clock, Star, Globe } from "lucide-react";
+import HorizontalCarousel from "./HorizontalCarousel";
 
 const specializations = [
   "Strength & Conditioning Coach",
@@ -126,12 +127,12 @@ export default function Trainers() {
   const isCarousel = trainers.length > 5;
 
   const containerClass = isCarousel
-    ? "flex w-full max-w-full snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:gap-6"
-    : "flex w-full max-w-full snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:overflow-x-visible sm:pb-0 lg:grid-cols-3 xl:grid-cols-5";
+    ? "gap-0 sm:gap-6"
+    : "gap-0 sm:grid sm:grid-cols-2 sm:gap-5 sm:overflow-x-visible lg:grid-cols-3 xl:grid-cols-5";
 
   const cardClass = isCarousel
-    ? "group relative w-full shrink-0 snap-center overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30 sm:w-[280px] lg:w-[320px]"
-    : "group relative w-full shrink-0 snap-center overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30 sm:w-auto sm:shrink";
+    ? "group relative shrink-0 snap-center overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30 w-full sm:w-[280px] lg:w-[320px]"
+    : "group relative shrink-0 snap-center overflow-hidden rounded-2xl transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl hover:shadow-black/30 w-full sm:w-auto sm:shrink";
 
   return (
     <section id="trainers" ref={ref} className="overflow-hidden bg-dark-100 py-20 sm:py-24 lg:py-[120px]">
@@ -170,7 +171,7 @@ export default function Trainers() {
             No trainers found. Add images to the <code className="text-purple">/public/images/</code> folder.
           </p>
         ) : (
-          <div className={containerClass}>
+          <HorizontalCarousel trackClassName={containerClass} scrollbarMobileOnly={!isCarousel}>
             {trainers.map((t, i) => (
               <motion.div
                 key={t.name}
@@ -265,7 +266,7 @@ export default function Trainers() {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </HorizontalCarousel>
         )}
       </div>
     </section>

@@ -29,7 +29,12 @@ export default function Hero() {
       <div className="absolute bottom-1/3 right-[10%] w-[500px] h-[500px] bg-purple/[0.04] rounded-full blur-[200px]" />
 
       <div className="premium-container relative z-10 pb-20 pt-8 sm:pt-10 lg:pb-32 lg:pt-40">
-        <div className="max-w-[720px] min-w-0">
+        <div
+          className="max-w-[720px] min-w-0"
+          style={{
+            padding: "clamp(12px, 3vw, 24px) clamp(8px, 2.5vw, 20px)",
+          }}
+        >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -56,6 +61,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="mb-6 max-w-full overflow-visible font-display text-[clamp(2.1rem,10.4vw,3rem)] font-bold leading-[1.08] tracking-[-0.015em] sm:mb-8 sm:text-[clamp(2.8rem,6vw,5rem)] sm:leading-[0.95] sm:tracking-[-0.03em]"
+            style={{ padding: "0 4px" }}
           >
             <span className="text-white block">Transform</span>
             <span className="text-white block">Your Body.</span>
@@ -67,6 +73,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-base sm:text-lg text-text-muted max-w-[520px] mb-12 leading-relaxed"
+            style={{ padding: "0 6px" }}
           >
             Gurgaon&apos;s Premium Fitness Destination with Expert Trainers,
             Modern Equipment, Personal Training &amp; Rehab Programs.
@@ -76,13 +83,25 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mb-14 flex flex-col gap-4 sm:mb-20 sm:flex-row"
+            className="mb-14 flex flex-col sm:mb-20 sm:flex-row"
+            style={{
+              padding: "clamp(8px, 2vw, 16px) clamp(10px, 3vw, 20px)",
+              gap: "16px",
+            }}
           >
-            <a href="#pricing" className="btn-premium !px-6 !py-3.5 sm:!px-8">
+            <a
+              href="#pricing"
+              className="btn-premium"
+              style={{ padding: "14px 28px" }}
+            >
               Book Free Trial
               <ArrowRight className="w-4 h-4" />
             </a>
-            <a href="#pricing" className="btn-outline-premium !px-6 !py-3.5 sm:!px-8">
+            <a
+              href="#pricing"
+              className="btn-outline-premium"
+              style={{ padding: "14px 28px" }}
+            >
               View Memberships
             </a>
           </motion.div>

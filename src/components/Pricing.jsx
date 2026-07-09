@@ -2,27 +2,44 @@
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Check, Crown, ArrowRight, X } from "lucide-react";
+import HorizontalCarousel from "./HorizontalCarousel";
+
+const includedFeatures = [
+  "Guidance from a General Trainer",
+  "General Workout Chart",
+  "Diet Chart & Basic Nutrition Guidance",
+  "Full Access to All Gym Equipment & Facilities",
+  "Access to Weekly Fitness Events & Challenges",
+  "A Supportive Environment to Help You Stay Consistent and Reach Your Goals",
+];
 
 const plans = [
   {
-    name: "Basic",
-    tagline: "Essential Access",
-    price: "1,499",
-    features: ["Full Gym Access", "Cardio Zone", "Strength Area", "Locker Facility", "Free Wi-Fi"],
+    name: "1 Month",
+    tagline: "Flexible Start",
+    price: "3,000",
+    duration: "1 month",
     popular: false,
   },
   {
-    name: "Pro",
+    name: "3 Months",
+    tagline: "Great Value",
+    price: "6,000",
+    duration: "3 months",
+    popular: false,
+  },
+  {
+    name: "6 Months",
     tagline: "Most Popular",
-    price: "2,499",
-    features: ["Everything in Basic", "Functional Training", "Diet Guidance", "Group Classes", "Steam Room Access", "Progress Tracking"],
+    price: "9,000",
+    duration: "6 months",
     popular: true,
   },
   {
-    name: "Elite",
-    tagline: "Premium Experience",
-    price: "4,999",
-    features: ["Everything in Pro", "Personal Trainer", "Customized Fitness Plan", "Rehab Programs", "Priority Booking", "Monthly Body Analysis", "Premium Locker"],
+    name: "12 Months",
+    tagline: "Best Value",
+    price: "15,000",
+    duration: "12 months",
     popular: false,
   },
 ];
@@ -72,19 +89,54 @@ export default function Pricing() {
               marginBottom: "32px",
             }}
           >
-            Flexible plans designed to fit your goals and budget.
+            Choose a duration that fits your schedule and goals.
           </p>
         </motion.div>
 
-        <div
-          className="flex w-full max-w-full snap-x snap-mandatory items-stretch justify-start gap-5 overflow-x-auto overscroll-x-contain pb-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:gap-8 xl:justify-center"
-          style={{ touchAction: "pan-x pan-y", paddingTop: "28px" }}
-          onWheel={(event) => {
-            if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
-              event.preventDefault();
-              window.scrollBy({ top: event.deltaY, behavior: "auto" });
-            }
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inview ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="mb-14 rounded-3xl border border-white/[0.06] bg-white/[0.02]"
+          style={{
+            padding: "clamp(28px, 6vw, 44px) clamp(20px, 5vw, 40px)",
           }}
+        >
+          <h3
+            className="text-center font-display text-xl font-bold text-white sm:text-2xl"
+            style={{ marginBottom: "12px" }}
+          >
+            What&apos;s Included?
+          </h3>
+          <p
+            className="mx-auto max-w-2xl text-center text-sm text-text-secondary sm:text-base"
+            style={{ marginBottom: "24px" }}
+          >
+            Every membership comes with everything you need to begin your fitness journey:
+          </p>
+          <ul
+            className="mx-auto grid max-w-3xl sm:grid-cols-2"
+            style={{ gap: "16px" }}
+          >
+            {includedFeatures.map((feature) => (
+              <li
+                key={feature}
+                className="flex items-start text-sm leading-6 text-text-secondary"
+                style={{ gap: "12px", padding: "4px 8px" }}
+              >
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-purple/15">
+                  <Check className="h-3 w-3 text-purple" />
+                </span>
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </motion.div>
+
+        <HorizontalCarousel
+          forwardVerticalWheel
+          trackClassName="items-stretch justify-start gap-0 sm:gap-8 xl:justify-center"
+          trackStyle={{ paddingTop: "28px" }}
         >
           {plans.map((p, i) => (
             <motion.div
@@ -92,7 +144,7 @@ export default function Pricing() {
               initial={{ opacity: 0, y: 28 }}
               animate={inview ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className={`relative w-full max-w-full shrink-0 snap-center rounded-3xl transition-all duration-500 sm:w-[350px] ${
+              className={`relative shrink-0 snap-center rounded-3xl transition-all duration-500 w-full sm:w-[350px] ${
                 p.popular
                   ? "bg-gradient-to-b from-dark-300 to-dark-200 border border-purple/[0.12] shadow-xl shadow-purple/[0.05] xl:scale-[1.03]"
                   : "glass hover:bg-white/[0.03]"
@@ -122,10 +174,12 @@ export default function Pricing() {
                   </div>
                   <h3 className="text-2xl font-display font-bold text-white mb-7">{p.name}</h3>
 
-                  <div className="flex items-baseline justify-center gap-1.5 mb-12">
-                    <span className="text-lg text-text-muted font-medium">₹</span>
-                    <span className="font-display text-5xl font-bold tracking-tight text-white lg:text-6xl">{p.price}</span>
-                    <span className="text-base text-text-muted">/mo</span>
+                  <div className="mb-12 text-center">
+                    <div className="flex items-baseline justify-center gap-1.5">
+                      <span className="text-lg font-medium text-text-muted">₹</span>
+                      <span className="font-display text-5xl font-bold tracking-tight text-white lg:text-6xl">{p.price}</span>
+                    </div>
+                    <span className="mt-2 block text-sm text-text-muted">for {p.duration}</span>
                   </div>
 
                 </div>
@@ -145,7 +199,7 @@ export default function Pricing() {
                     Explore Features
                   </button>
                   <a
-                    href="https://wa.me/919667949344?text=Hi!%20I%20want%20to%20join%20ALL%20FIT%20GYM"
+                    href={`https://wa.me/919667949344?text=${encodeURIComponent(`Hi! I'm interested in the ${p.name} membership (₹${p.price}).`)}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`w-full text-center ${
@@ -167,7 +221,7 @@ export default function Pricing() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </HorizontalCarousel>
       </div>
 
       <AnimatePresence>
@@ -211,19 +265,21 @@ export default function Pricing() {
                   {selectedPlan.tagline}
                 </div>
                 <h3 id="plan-modal-title" className="font-display text-3xl font-bold leading-tight text-white">
-                  {selectedPlan.name} Plan
+                  {selectedPlan.name} Membership
                 </h3>
-                <div className="flex items-baseline gap-1.5" style={{ marginTop: "18px" }}>
-                  <span className="text-base text-text-muted">₹</span>
-                  <span className="font-display text-4xl font-bold text-white">{selectedPlan.price}</span>
-                  <span className="text-sm text-text-muted">/mo</span>
+                <div style={{ marginTop: "18px" }}>
+                  <div className="flex items-baseline gap-1.5">
+                    <span className="text-base text-text-muted">₹</span>
+                    <span className="font-display text-4xl font-bold text-white">{selectedPlan.price}</span>
+                  </div>
+                  <span className="mt-1 block text-sm text-text-muted">for {selectedPlan.duration}</span>
                 </div>
               </div>
 
               <div style={{ padding: "clamp(24px, 7vw, 28px) clamp(20px, 7vw, 36px) clamp(28px, 8vw, 36px)" }}>
-                <p className="text-sm font-semibold text-white" style={{ marginBottom: "22px" }}>Everything included</p>
+                <p className="text-sm font-semibold text-white" style={{ marginBottom: "22px" }}>What&apos;s Included</p>
                 <ul style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-                  {selectedPlan.features.map((feature) => (
+                  {includedFeatures.map((feature) => (
                     <li key={feature} className="flex items-start text-sm leading-6 text-text-secondary" style={{ gap: "14px" }}>
                       <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-purple/15">
                         <Check className="h-3 w-3 text-purple" />
@@ -234,7 +290,7 @@ export default function Pricing() {
                 </ul>
 
                 <a
-                  href="https://wa.me/919667949344?text=Hi!%20I%20want%20to%20join%20ALL%20FIT%20GYM"
+                  href={`https://wa.me/919667949344?text=${encodeURIComponent(`Hi! I'm interested in the ${selectedPlan.name} membership (₹${selectedPlan.price}).`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn-premium !w-full"

@@ -80,31 +80,37 @@ export default function AIAssistant() {
             initial={{ opacity: 0, x: -32 }}
             animate={inview ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6 }}
+            style={{
+              padding: "clamp(16px, 4vw, 28px) clamp(12px, 3vw, 24px)",
+            }}
           >
-            <div className="section-label w-fit">
+            <div className="section-label w-fit" style={{ marginBottom: "20px" }}>
               <Sparkles className="w-3.5 h-3.5 text-purple" />
               <span>AI Powered</span>
             </div>
 
-            <h2 className="section-heading">
+            <h2 className="section-heading" style={{ marginBottom: "16px" }}>
               24/7 <span className="gradient-text">Fitness Guidance</span>
             </h2>
 
-            <p className="section-subtext mb-8 max-w-[440px]">
+            <p
+              className="section-subtext max-w-[440px]"
+              style={{ marginBottom: "28px", paddingRight: "8px" }}
+            >
               Get instant answers, personalized recommendations, and book your
               free trial — all powered by AI, available anytime.
             </p>
 
-            <div className="space-y-3 mb-8">
+            <div style={{ marginBottom: "28px", display: "flex", flexDirection: "column", gap: "14px" }}>
               {benefits.map((b, i) => (
-                <div key={i} className="flex items-center gap-3">
+                <div key={i} className="flex items-center" style={{ gap: "12px", padding: "4px 8px" }}>
                   <b.icon className="w-5 h-5 text-success shrink-0" />
                   <span className="text-sm text-text-secondary">{b.text}</span>
                 </div>
               ))}
             </div>
 
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-3 sm:grid-cols-2" style={{ padding: "0 4px" }}>
               {quickActions.map((a, i) => (
                 <button
                   key={i}

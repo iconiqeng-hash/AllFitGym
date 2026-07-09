@@ -272,6 +272,59 @@ span {
   background-clip: text;
 }
 
+.carousel-wrapper {
+  width: 100%;
+}
+
+.carousel-track {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  touch-action: pan-x pan-y;
+}
+
+.carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+.carousel-track--single-mobile > * {
+  flex: 0 0 100%;
+  min-width: 100%;
+  scroll-snap-align: center;
+}
+
+@media (min-width: 640px) {
+  .carousel-track--single-mobile > * {
+    flex: 0 0 auto;
+    min-width: 0;
+  }
+}
+
+.carousel-scrollbar {
+  position: relative;
+  height: 3px;
+  width: min(100%, 200px);
+  margin: 16px auto 0;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 9999px;
+}
+
+.carousel-scrollbar-thumb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  min-width: 28px;
+  background: rgba(139, 92, 246, 0.5);
+  border-radius: 9999px;
+  transition: left 0.15s ease-out, width 0.15s ease-out;
+}
+
 @keyframes float {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-6px); }

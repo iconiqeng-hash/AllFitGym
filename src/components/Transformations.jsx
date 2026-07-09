@@ -2,6 +2,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ArrowRight, TrendingDown, TrendingUp, Clock, Target } from "lucide-react";
+import HorizontalCarousel from "./HorizontalCarousel";
 
 const transformations = [
   { name: "Rahul M.", goal: "Weight Loss", result: "Lost 15 kg", timeline: "12 Weeks", before: "Struggled with obesity and low confidence. Unhealthy lifestyle with no workout routine.", after: "Completely transformed physique with visible muscle definition and improved stamina.", img: "https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=600&q=85", change: "-15 kg", type: "loss" },
@@ -52,7 +53,10 @@ export default function Transformations() {
           </p>
         </motion.div>
 
-        <div className="flex w-full max-w-full snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-8 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-x-visible sm:pb-0 lg:gap-10 xl:grid-cols-4">
+        <HorizontalCarousel
+          trackClassName="gap-0 sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-x-visible lg:gap-10 xl:grid-cols-4"
+          scrollbarMobileOnly
+        >
           {transformations.map((t, i) => (
             <motion.div
               key={i}
@@ -109,7 +113,7 @@ export default function Transformations() {
               </div>
             </motion.div>
           ))}
-        </div>
+        </HorizontalCarousel>
 
         <motion.div
           initial={{ opacity: 0, y: 16 }}

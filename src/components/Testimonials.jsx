@@ -2,6 +2,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { CarouselScrollIndicator } from "./HorizontalCarousel";
 
 const testimonials = [
   { name: "Arun Mehta", avatar: "AM", text: "Good balance of machines and free weights. Staff is friendly and helpful. The trainers really know their stuff and push you to your limits in a supportive way.", rating: 5, program: "Personal Training" },
@@ -138,7 +139,12 @@ export default function Testimonials() {
           </motion.div>
         </div>
 
-        <div className="flex items-center justify-center gap-4" style={{ marginTop: "64px" }}>
+        <CarouselScrollIndicator
+          progress={max > 0 ? cur / max : 0}
+          total={testimonials.length}
+        />
+
+        <div className="flex items-center justify-center gap-4" style={{ marginTop: "40px" }}>
           <button
             onClick={prev}
             disabled={cur === 0}
