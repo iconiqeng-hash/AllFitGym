@@ -71,15 +71,15 @@ export default function Contact() {
           </p>
         </motion.div>
 
-        <div className="grid min-w-0 gap-10 lg:grid-cols-2 lg:gap-16 items-start">
+        <div className="grid w-full min-w-0 gap-10 lg:grid-cols-2 lg:gap-16 items-start">
           <motion.div
             initial={{ opacity: 0, x: -32 }}
             animate={inview ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="space-y-8"
+            className="w-full min-w-0 space-y-8"
           >
             <div
-              className="rounded-[20px]"
+              className="w-full min-w-0 rounded-[20px]"
               style={{ background: "#171A20", border: "1px solid rgba(255,255,255,0.08)", padding: "clamp(20px, 6vw, 28px)" }}
             >
               <h3 className="font-['Poppins'] text-xl font-semibold text-white" style={{ marginBottom: "24px" }}>Get in Touch</h3>
@@ -196,9 +196,10 @@ export default function Contact() {
             initial={{ opacity: 0, x: 32 }}
             animate={inview ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.5, delay: 0.2 }}
+            className="w-full min-w-0"
           >
             <div
-              className="rounded-[20px] flex flex-col"
+              className="w-full min-w-0 rounded-[20px] flex flex-col"
               style={{
                 background: "#171A20",
                 border: "1px solid rgba(255,255,255,0.08)",
