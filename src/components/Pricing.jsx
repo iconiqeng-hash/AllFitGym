@@ -134,9 +134,9 @@ export default function Pricing() {
         </motion.div>
 
         <HorizontalCarousel
-          forwardVerticalWheel
-          trackClassName="items-stretch justify-start gap-0 sm:gap-8 xl:justify-center"
+          trackClassName="items-stretch justify-start gap-0 sm:grid sm:grid-cols-2 sm:gap-8 sm:overflow-x-visible xl:grid-cols-4 xl:justify-center"
           trackStyle={{ paddingTop: "28px" }}
+          scrollbarMobileOnly
         >
           {plans.map((p, i) => (
             <motion.div
@@ -144,7 +144,7 @@ export default function Pricing() {
               initial={{ opacity: 0, y: 28 }}
               animate={inview ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.4, delay: i * 0.1 }}
-              className={`relative shrink-0 snap-center rounded-3xl transition-all duration-500 w-full sm:w-[350px] ${
+              className={`relative w-full shrink-0 snap-center rounded-3xl transition-all duration-500 sm:w-auto ${
                 p.popular
                   ? "bg-gradient-to-b from-dark-300 to-dark-200 border border-purple/[0.12] shadow-xl shadow-purple/[0.05] xl:scale-[1.03]"
                   : "glass hover:bg-white/[0.03]"

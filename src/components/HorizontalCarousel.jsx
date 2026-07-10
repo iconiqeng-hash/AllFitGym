@@ -7,7 +7,6 @@ export default function HorizontalCarousel({
   trackClassName = "",
   trackStyle,
   singleCardMobile = true,
-  forwardVerticalWheel = false,
   scrollbarMobileOnly = false,
 }) {
   const scrollRef = useRef(null);
@@ -41,22 +40,6 @@ export default function HorizontalCarousel({
       ro.disconnect();
     };
   }, [updateMetrics, children]);
-
-  useEffect(() => {
-    if (!forwardVerticalWheel) return undefined;
-    const container = scrollRef.current;
-    if (!container) return undefined;
-
-    const handleWheel = (event) => {
-      if (Math.abs(event.deltaY) > Math.abs(event.deltaX)) {
-        event.preventDefault();
-        window.scrollBy({ top: event.deltaY, behavior: "auto" });
-      }
-    };
-
-    container.addEventListener("wheel", handleWheel, { passive: false });
-    return () => container.removeEventListener("wheel", handleWheel);
-  }, [forwardVerticalWheel]);
 
   const canScroll = metrics.scrollWidth > metrics.clientWidth + 2;
   const maxScroll = metrics.scrollWidth - metrics.clientWidth;

@@ -13,7 +13,7 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[calc(100svh-4rem)] items-start overflow-hidden pt-0 lg:min-h-screen lg:items-center lg:pt-16"
+      className="relative min-h-[calc(100svh-4rem)] overflow-x-hidden pt-8 sm:pt-10 lg:min-h-[calc(100svh-72px)] lg:pt-12"
     >
       <div className="absolute inset-0 z-0">
         <img
@@ -28,7 +28,7 @@ export default function Hero() {
       <div className="absolute top-1/3 left-[10%] w-[400px] h-[400px] bg-purple/[0.06] rounded-full blur-[200px]" />
       <div className="absolute bottom-1/3 right-[10%] w-[500px] h-[500px] bg-purple/[0.04] rounded-full blur-[200px]" />
 
-      <div className="premium-container relative z-10 pb-20 pt-8 sm:pt-10 lg:pb-32 lg:pt-40">
+      <div className="premium-container relative z-10 w-full pb-16 sm:pb-20 lg:pb-24 xl:pb-32">
         <div
           className="max-w-[720px] min-w-0"
           style={{
@@ -39,18 +39,18 @@ export default function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="mb-7 flex w-full max-w-full flex-col items-start gap-2 rounded-2xl sm:mb-10 sm:inline-flex sm:w-auto sm:flex-row sm:items-center sm:gap-2 sm:rounded-full glass"
-            style={{ marginTop: "12px", padding: "14px 24px" }}
+            className="mb-6 flex w-fit max-w-full flex-wrap items-start gap-x-4 gap-y-2 rounded-2xl border border-white/[0.1] bg-dark-100/70 shadow-lg shadow-black/25 backdrop-blur-xl sm:mb-8 sm:items-center sm:rounded-full"
+            style={{ padding: "14px 20px" }}
           >
-            <span className="flex w-full min-w-0 items-start gap-2 sm:w-auto sm:items-center">
+            <span className="flex min-w-0 items-start gap-2 sm:max-w-[26rem] sm:items-center">
               <Star className="h-3.5 w-3.5 shrink-0 fill-gold text-gold" />
-              <span className="block min-w-0 flex-1 whitespace-normal text-xs font-medium leading-snug text-text-secondary">
+              <span className="block min-w-0 whitespace-normal text-xs font-medium leading-snug text-text-secondary">
                 4.9 Rated Gym in Gurgaon &bull; 146+ Reviews
               </span>
             </span>
-            <span className="flex w-full min-w-0 items-center gap-1.5 sm:ml-1 sm:w-auto">
+            <span className="flex min-w-0 items-center gap-1.5">
               <MapPin className="h-3 w-3 shrink-0 text-text-muted" />
-              <span className="block min-w-0 flex-1 whitespace-normal text-xs leading-snug text-text-muted sm:flex-none">
+              <span className="block min-w-0 whitespace-normal text-xs leading-snug text-text-muted">
                 Sushant Lok
               </span>
             </span>
@@ -60,7 +60,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.1 }}
-            className="mb-6 max-w-full overflow-visible font-display text-[clamp(2.1rem,10.4vw,3rem)] font-bold leading-[1.08] tracking-[-0.015em] sm:mb-8 sm:text-[clamp(2.8rem,6vw,5rem)] sm:leading-[0.95] sm:tracking-[-0.03em]"
+            className="mb-5 max-w-full overflow-visible font-display text-[clamp(2.1rem,10.4vw,3rem)] font-bold leading-[1.08] tracking-[-0.015em] sm:mb-7 sm:text-[clamp(2.8rem,6vw,5rem)] sm:leading-[0.95] sm:tracking-[-0.03em]"
             style={{ padding: "0 4px" }}
           >
             <span className="text-white block">Transform</span>
@@ -72,7 +72,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base sm:text-lg text-text-muted max-w-[520px] mb-12 leading-relaxed"
+            className="mb-10 max-w-[520px] text-base leading-relaxed text-text-muted sm:text-lg"
             style={{ padding: "0 6px" }}
           >
             Gurgaon&apos;s Premium Fitness Destination with Expert Trainers,
@@ -83,7 +83,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="mb-14 flex flex-col sm:mb-20 sm:flex-row"
+            className="mb-12 flex flex-col sm:mb-16 sm:flex-row"
             style={{
               padding: "clamp(8px, 2vw, 16px) clamp(10px, 3vw, 20px)",
               gap: "16px",
