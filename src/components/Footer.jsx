@@ -33,7 +33,7 @@ const socials = [
 ];
 
 const contactInfo = [
-  { icon: MapPin, text: "2935, Block C, Sushant Lok Phase I, Sector 43, Gurugram, Haryana" },
+  { icon: MapPin, text: "2935A, Block C, Sushant Lok Phase I, Sector 43, Gurugram, Haryana" },
   { icon: Phone, text: "+91 96679 49344", href: "tel:+919667949344" },
   { icon: Mail, text: "info@allfitgym.com", href: "mailto:info@allfitgym.com" },
 ];

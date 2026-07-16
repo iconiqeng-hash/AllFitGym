@@ -93,7 +93,7 @@ export default function Contact() {
                   <div className="min-w-0">
                     <div className="font-['Poppins'] text-sm font-medium text-white mb-2">Address</div>
                     <div className="font-['Poppins'] text-sm leading-relaxed" style={{ color: "#9CA3AF" }}>
-                      2935, Block C, Sushant Lok Phase I, Sector 43,<br />
+                      2935A, Block C, Sushant Lok Phase I, Sector 43,<br />
                       Gurugram, Haryana 122009
                     </div>
                   </div>

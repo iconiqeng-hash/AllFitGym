@@ -68,6 +68,14 @@ const socialLinks = {
   bhanu: "https://instagram.com/akki_sharma0052",
 };
 
+const trainerExperience = {
+  "Anurag Chaturvedi": "[To be updated]",
+  Keshav: "[To be updated]",
+  "Satyam Sharma": "3 years",
+  "Bhanu Bhardwaj": "2 years",
+  "Arvind Verma": "[To be updated]",
+};
+
 function getSocialLink(name) {
   const n = name.toLowerCase();
   for (const [key, url] of Object.entries(socialLinks)) {
@@ -81,7 +89,8 @@ function getTrainerRole(name) {
 }
 
 function getExperienceYears(name, hash) {
-  if (name === "Satyam Sharma") return 2;
+  if (name === "Satyam Sharma") return 3;
+  if (name === "Bhanu Bhardwaj") return 2;
   return 5 + (hash % 6);
 }
 
@@ -108,10 +117,10 @@ export default function Trainers() {
           role,
           img: url,
           spec: specializations[h % specializations.length],
-          exp: `${years} Years`,
           cert: certifications[h % certifications.length],
           rating: "5.0",
           reviews: getReviewCount(role, years, h),
+          exp: trainerExperience[name] || "[To be updated]",
           bio: bios[h % bios.length],
         };
       })
@@ -202,7 +211,7 @@ export default function Trainers() {
                   </div>
 
                   <div
-                    className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#171A20] via-[#171A20]/90 to-transparent"
+                    className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#171A20] via-[#171A20]/90 to-transparent group-hover:opacity-0"
                     style={{ padding: "28px 24px 24px 24px" }}
                   >
                     <h3 className="mb-1.5 font-display text-base font-bold leading-snug text-white">{t.name}</h3>
@@ -226,11 +235,11 @@ export default function Trainers() {
                 </div>
 
                 <div
-                  className="absolute inset-0 flex flex-col justify-end opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                  className="absolute inset-0 flex flex-col justify-end opacity-0 group-hover:opacity-100 pointer-events-none"
                   style={{ padding: "20px" }}
                 >
                   <div
-                    className="glass rounded-xl pointer-events-auto"
+                    className="rounded-xl border border-white/[0.08] bg-[#171A20]/95 shadow-xl pointer-events-auto"
                     style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "16px" }}
                   >
                     <p className="text-xs text-text-secondary leading-relaxed">
