@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import { Star, ArrowRight, Dumbbell, Users, Award, MapPin } from "lucide-react";
+import { FREE_TRIAL_WHATSAPP_URL } from "../constants";
 
 const stats = [
   { icon: Star, value: "4.9", label: "Google Rating", color: "text-gold" },
@@ -90,11 +91,13 @@ export default function Hero() {
             }}
           >
             <a
-              href="#pricing"
+              href={FREE_TRIAL_WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-premium"
               style={{ padding: "14px 28px" }}
             >
-              Book Free Trial
+              I Want to Book a Free Trial
               <ArrowRight className="w-4 h-4" />
             </a>
             <a

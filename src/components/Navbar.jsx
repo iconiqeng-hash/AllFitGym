@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import { FREE_TRIAL_WHATSAPP_URL } from "../constants";
 
 const links = [
   { name: "Home", href: "#home" },
@@ -112,7 +113,9 @@ export default function Navbar() {
 
           <div className="hidden lg:flex items-center shrink-0">
             <a
-              href="#pricing"
+              href={FREE_TRIAL_WHATSAPP_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="btn-premium !py-2.5 !px-6 text-xs"
             >
               Book Free Trial
@@ -190,7 +193,9 @@ export default function Navbar() {
                 }}
               >
                 <a
-                  href="#pricing"
+                  href={FREE_TRIAL_WHATSAPP_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setOpen(false)}
                   className="btn-premium min-h-[58px] w-full !py-4 text-sm"
                 >

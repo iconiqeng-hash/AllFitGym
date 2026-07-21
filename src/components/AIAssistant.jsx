@@ -2,6 +2,7 @@
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { Bot, Sparkles, Dumbbell, Salad, Beef, HelpCircle, Calendar, UserPlus, CheckCircle } from "lucide-react";
+import { FREE_TRIAL_WHATSAPP_URL, GYM_HOURS } from "../constants";
 
 const quickActions = [
   { icon: Dumbbell, label: "Membership Plans", query: "What are the membership plans?" },
@@ -27,7 +28,7 @@ const responses = {
   muscle:
     "Building muscle is a journey — and we're here to guide you through it.\n\nOur approach includes:\n\n• A structured workout split designed for your level\n• Diet guidance for lean muscle gains\n• Progressive overload tracking with trainer support\n• Access to premium strength & functional training zones\n\nVisit us for a free trial and let's start building your best physique together.",
   timings:
-    "We'd love to see you at the gym!\n\n🕐 Mon–Sat: 5:30 AM – 10:00 PM\n🕐 Sunday: 7:00 AM – 9:00 PM\n\n📍 2935A, Block C, Sushant Lok Phase I, Sector 43, Gurugram, Haryana 122009\n\nFeel free to walk in during these hours, or book a free trial so our team can give you a personalised tour.",
+    `We'd love to see you at the gym!\n\n🕐 ${GYM_HOURS.mondayToSaturday}\n🕐 ${GYM_HOURS.sunday}\n\n📍 2935A, Block C, Sushant Lok Phase I, Sector 43, Gurugram, Haryana 122009\n\nFeel free to walk in during these hours, or book a free trial so our team can give you a personalised tour.`,
   trial:
     "Wonderful — we're excited you're interested in trying ALL FIT GYM!\n\nYour free trial is the perfect way to experience our space, meet our trainers, and see if we're the right fit for your goals. There's absolutely no obligation.\n\nTo confirm your visit:\n📞 Call: +91 96679 49344\n💬 WhatsApp: wa.me/919667949344\n\n📍 Sushant Lok Phase I, Gurgaon\n\nOur team will be happy to schedule a time that works for you. We can't wait to welcome you!",
   join:
@@ -126,7 +127,13 @@ export default function AIAssistant() {
               {quickActions.map((a, i) => (
                 <button
                   key={i}
-                  onClick={() => handle(a.query)}
+                  onClick={() => {
+                    if (a.label === "Free Trial") {
+                      window.open(FREE_TRIAL_WHATSAPP_URL, "_blank", "noopener,noreferrer");
+                      return;
+                    }
+                    handle(a.query);
+                  }}
                   className="flex min-w-0 items-center gap-3 rounded-xl px-4 py-3.5 text-left transition-all duration-200 hover:bg-white/[0.03] glass"
                 >
                   <div className="w-8 h-8 rounded-lg bg-purple/10 flex items-center justify-center shrink-0">

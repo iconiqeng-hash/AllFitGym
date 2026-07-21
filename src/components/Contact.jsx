@@ -2,6 +2,7 @@
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { useRef, useState } from "react";
 import { MapPin, Phone, Clock, Send, MessageCircle, Mail, CheckCircle, ArrowUpRight } from "lucide-react";
+import { GYM_HOURS } from "../constants";
 
 export default function Contact() {
   const ref = useRef(null);
@@ -137,8 +138,8 @@ export default function Contact() {
                   <div className="min-w-0">
                     <div className="font-['Poppins'] text-sm font-medium text-white mb-2">Timings</div>
                     <div className="font-['Poppins'] text-sm" style={{ color: "#9CA3AF" }}>
-                      Mon - Sat: 5:30 AM - 10:00 PM<br />
-                      Sunday: 7:00 AM - 9:00 PM
+                      {GYM_HOURS.mondayToSaturday}<br />
+                      {GYM_HOURS.sunday}
                     </div>
                   </div>
                 </div>
@@ -181,13 +182,14 @@ export default function Contact() {
               style={{ background: "#171A20", border: "1px solid rgba(255,255,255,0.08)", marginTop: "36px" }}
             >
               <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.664534498457!2d77.0449863150815!3d28.45209498248698!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d19c8e5e9e1e1%3A0x1234567890abcdef!2sSushant%20Lok%20Phase%20I%2C%20Gurugram%2C%20Haryana!5e0!3m2!1sen!2sin!4v1234567890"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.827205250812!2d77.08289528681384!3d28.454624829656417!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d197af4048e31%3A0xe34e7cc3a2e9a315!2sALL%20FIT%20GYM!5e0!3m2!1sen!2sin!4v1784558278505!5m2!1sen!2sin"
                 width="100%"
                 height="100%"
                 style={{ border: 0, filter: "grayscale(0.6) brightness(0.75) contrast(1.1)" }}
                 allowFullScreen=""
                 loading="lazy"
-                title="ALL FIT GYM Location"
+                referrerPolicy="strict-origin-when-cross-origin"
+                title="ALL FIT GYM exact location"
               />
             </div>
           </motion.div>
@@ -277,7 +279,7 @@ export default function Contact() {
                         required
                         value={form.phone}
                         onChange={(e) => handlePhoneChange(e.target.value)}
-                        placeholder="9876543210"
+                        placeholder="Enter phone number"
                         inputMode="numeric"
                         maxLength={10}
                         pattern="[6-9][0-9]{9}"
